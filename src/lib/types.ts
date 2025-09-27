@@ -9,5 +9,6 @@ type: QuestionType;
 stem: string;
 choices: string[]; // 1..5 を想定
 answer: number[]; // 1..5（複数可）
+images?: string[];
 explanation?: string;
 };

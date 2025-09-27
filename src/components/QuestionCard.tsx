@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import type { Question } from "@/lib/types";
 import { qKey, setUserAnswer, getUserAnswers } from "@/lib/storage";
@@ -10,6 +11,8 @@ type Props = {
   year: number;
   block: number;
   onAnswered?: (correct: boolean) => void;
+  onNext?: () => void;
+  canAdvance?: boolean;
 };
 
 function eqSet(a: number[], b: number[]) {
@@ -18,7 +21,7 @@ function eqSet(a: number[], b: number[]) {
   return A === B;
 }
 
-export default function QuestionCard({ q, year, block, onAnswered }: Props) {
+export default function QuestionCard({ q, year, block, onAnswered, onNext, canAdvance }: Props) {
   const key = qKey(year, block, q.number);
   const [picks, setPicks] = useState<number[]>([]);
   const [graded, setGraded] = useState(false);
@@ -45,7 +48,7 @@ export default function QuestionCard({ q, year, block, onAnswered }: Props) {
 
   function handleKey(e: React.KeyboardEvent<HTMLDivElement>) {
     const n = Number(e.key);
-    if (n >= 1 && n <= 5) {
+    if (n >= 1 && n <= q.choices.length) {
       e.preventDefault();
       toggle(n);
     }
@@ -85,21 +88,38 @@ export default function QuestionCard({ q, year, block, onAnswered }: Props) {
 
   const picked = new Set(picks);
   const correct = eqSet(picks, q.answer);
+  const canShowNext = graded && !!onNext && canAdvance;
 
   return (
-    <div
-      tabIndex={0}
-      onKeyDown={handleKey}
-      className={styles.card}
-    >
+    <div tabIndex={0} onKeyDown={handleKey} className={styles.card}>
       <div className={styles.header}>
         <span>
           {year}年 Block {block}
         </span>
-        <span>Q{q.number}（{q.type}）</span>
+        <span>
+          Q{q.number} / {q.type.toUpperCase()}
+        </span>
       </div>
 
       <div className={styles.stem}>{q.stem}</div>
+
+      {q.images && q.images.length > 0 && (
+        <div className={styles.mediaGrid}>
+          {q.images.map((src, idx) => (
+            <figure key={src} className={styles.mediaItem}>
+              <Image
+                src={src}
+                alt={`問題 ${q.number} の参考画像 ${idx + 1}`}
+                width={1024}
+                height={768}
+                className={styles.mediaImage}
+                sizes="(max-width: 640px) 100vw, 720px"
+                loading={idx === 0 ? "eager" : "lazy"}
+              />
+            </figure>
+          ))}
+        </div>
+      )}
 
       <ol className={styles.choiceList}>
         {q.choices.map((c, i) => {
@@ -109,7 +129,7 @@ export default function QuestionCard({ q, year, block, onAnswered }: Props) {
           const inputId = `${groupName}-choice-${idx}`;
 
           return (
-            <li key={i}>
+            <li key={idx}>
               <label
                 htmlFor={inputId}
                 className={clsx(styles.choice, isPicked && styles.choicePicked)}
@@ -126,9 +146,7 @@ export default function QuestionCard({ q, year, block, onAnswered }: Props) {
                   <span className={styles.choiceIndex}>選択肢 {idx}</span>
                   <span>{c}</span>
                   <span className={styles.pickedTag}>選択中</span>
-                  {graded && isAnswer && (
-                    <span className={styles.answerHint}>正解</span>
-                  )}
+                  {graded && isAnswer && <span className={styles.answerHint}>正解</span>}
                 </div>
               </label>
             </li>
@@ -143,13 +161,13 @@ export default function QuestionCard({ q, year, block, onAnswered }: Props) {
             correct ? styles.statusPanelCorrect : styles.statusPanelWrong
           )}
         >
-          <div className={styles.statusTitle}>{correct ? "正解です" : "不正解"}</div>
+          <div className={styles.statusTitle}>{correct ? "正解です" : "不正解です"}</div>
 
           {q.explanation && <p>{q.explanation}</p>}
 
           <div className={styles.statusMeta}>答え: {q.answer.join(", ")}</div>
 
-          <div className={styles.statusMeta}>ショートカット: 1〜5 で選択 / Enter で採点</div>
+          <div className={styles.statusMeta}>ショートカット: 1-5 で選択 / Enter で採点</div>
         </div>
       )}
 
@@ -163,6 +181,14 @@ export default function QuestionCard({ q, year, block, onAnswered }: Props) {
             aria-disabled={picks.length === 0}
           >
             採点する
+          </button>
+        </div>
+      )}
+
+      {canShowNext && (
+        <div className={styles.actions}>
+          <button type="button" onClick={onNext} className={styles.nextButton}>
+            次の問題へ
           </button>
         </div>
       )}
