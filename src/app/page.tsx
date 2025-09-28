@@ -3,14 +3,14 @@ import styles from "./page.module.css";
 
 const quizCatalog = [
   {
-    year: 2023,
-    blocks: [1, 2, 3, 4, 5, 6, 7, 8],
-    description: "卒試2023 過去問セット",
-  },
-  {
     year: 2024,
     blocks: [1, 2, 3, 4, 5, 6, 7, 8],
     description: "卒試2024 過去問セット",
+  },
+  {
+    year: 2025,
+    blocks: [1, 2, 3, 4, 5, 6, 7, 8],
+    description: "卒試2025 過去問セット",
   },
 ];
 
@@ -24,13 +24,13 @@ export default function Page() {
       </div>
       <section className={styles.hero}>
         <span className={styles.badge}>Preview</span>
-        <h1 className={styles.title}>CIS Quiz</h1>
+        <h1 className={styles.title}>CIS</h1>
         <p className={styles.lead}>
-          公衆衛生・臨床医学の知識確認に使えるコンパクトなクイズツール。年次・ブロックごとに問題を選んで、すばやく復習しましょう。
+          卒業試験過去問
         </p>
         <div className={styles.meta}>
           <span>
-            現在: <strong>2023 / Block 1</strong> を収録
+            現在: <strong>2024年度過去問</strong> を収録
           </span>
           <span>今後追加予定: 解説ノートや正答率の集計</span>
         </div>
