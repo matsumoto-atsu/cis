@@ -1,4 +1,4 @@
-.main {
+﻿.main {
   max-width: 960px;
   margin: 0 auto;
   padding: 4.5rem 1.5rem 3rem;
@@ -152,3 +152,39 @@
     background: rgba(30, 41, 59, 0.9);
   }
 }
+
+.utilLinks {
+  align-self: flex-end;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.utilLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.55rem 1rem;
+  border-radius: 9999px;
+  font-weight: 600;
+  background: rgba(37, 99, 235, 0.15);
+  color: var(--accent-strong);
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.utilLink:hover {
+  background: rgba(37, 99, 235, 0.24);
+  transform: translateY(-1px);
+}
+
+@media (prefers-color-scheme: dark) {
+  .utilLink {
+    background: rgba(59, 130, 246, 0.2);
+    color: #cbd5f5;
+  }
+
+  .utilLink:hover {
+    background: rgba(59, 130, 246, 0.3);
+  }
+}
+
+

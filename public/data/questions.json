@@ -16,7 +16,7 @@
       5
     ],
     "images": [
-      "/data/images/block1/q1_1.png"
+      "/data/images/block1/q1_1.jpeg"
     ],
     "explanation": ""
   },
@@ -37,7 +37,8 @@
       3
     ],
     "images": [
-      "/data/images/block1/q2_1.png"
+      "/data/images/block1/q2_1.jpeg",
+      "/data/images/block1/q2_2.jpeg"
     ],
     "explanation": ""
   },
@@ -96,7 +97,7 @@
       3
     ],
     "images": [
-      "/data/images/block1/q5_1.png"
+      "/data/images/block1/q5_1.jpeg"
     ],
     "explanation": ""
   },
@@ -137,7 +138,7 @@
       4
     ],
     "images": [
-      "/data/images/block1/q7_1.png"
+      "/data/images/block1/q7_1.jpeg"
     ],
     "explanation": ""
   },
@@ -177,7 +178,7 @@
       4
     ],
     "images": [
-      "/data/images/block1/q9_1.png"
+      "/data/images/block1/q9_1.jpeg"
     ],
     "explanation": ""
   },
@@ -274,7 +275,7 @@
       2
     ],
     "images": [
-      "/data/images/block1/q14_1.png"
+      "/data/images/block1/q14_1.jpeg"
     ],
     "explanation": ""
   },
@@ -315,7 +316,7 @@
       4
     ],
     "images": [
-      "/data/images/block1/q16_1.png"
+      "/data/images/block1/q16_1.jpeg"
     ],
     "explanation": ""
   },
@@ -337,7 +338,8 @@
       3
     ],
     "images": [
-      "/data/images/block1/q17_1.png"
+      "/data/images/block1/q17_1.jpeg",
+      "/data/images/block1/q17_2.jpeg"
     ],
     "explanation": ""
   },
@@ -360,8 +362,8 @@
       4
     ],
     "images": [
-      "/data/images/block1/q18_1.png",
-      "/data/images/block1/q18_2.png"
+      "/data/images/block1/q18_1.jpeg",
+      "/data/images/block1/q18_2.jpeg"
     ],
     "explanation": ""
   },
@@ -458,7 +460,7 @@
       3
     ],
     "images": [
-      "/data/images/block1/q23_1.png"
+      "/data/images/block1/q23_1.jpeg"
     ],
     "explanation": ""
   },
@@ -612,9 +614,7 @@
       2,
       3
     ],
-    "images": [
-      "/data/images/block1/q31_1.png"
-    ],
+    "images": [],
     "explanation": ""
   },
   {
@@ -732,7 +732,8 @@
       1
     ],
     "images": [
-      "/data/images/block1/q37_1.png"
+      "/data/images/block1/q37_1.jpeg",
+      "/data/images/block1/q37_2.jpeg"
     ],
     "explanation": ""
   },
@@ -753,7 +754,9 @@
       3
     ],
     "images": [
-      "/data/images/block1/q38_1.png"
+      "/data/images/block1/q38_1.jpeg",
+      "/data/images/block1/q38_2.jpeg",
+      "/data/images/block1/q38_3.jpeg"
     ],
     "explanation": ""
   },
@@ -793,7 +796,8 @@
       1
     ],
     "images": [
-      "/data/images/block1/q40_1.png"
+      "/data/images/block1/q40_1.jpeg",
+      "/data/images/block1/q40_2.jpeg"
     ],
     "explanation": ""
   },
@@ -991,7 +995,7 @@
       1
     ],
     "images": [
-      "/data/images/block1/q50_1.png"
+      "/data/images/block1/q50_1.jpeg"
     ],
     "explanation": ""
   },
@@ -1050,7 +1054,7 @@
       4
     ],
     "images": [
-      "/data/images/block2/q3_1.png"
+      "/data/images/block2/q3_1.jpeg"
     ],
     "explanation": ""
   },
@@ -1129,7 +1133,9 @@
     "answer": [
       2
     ],
-    "images": [],
+    "images": [
+      "/data/images/block2/q7_1.jpeg"
+    ],
     "explanation": ""
   },
   {
@@ -1170,7 +1176,7 @@
       3
     ],
     "images": [
-      "/data/images/block2/q9_1.png"
+      "/data/images/block2/q9_1.jpeg"
     ],
     "explanation": ""
   },
@@ -1209,9 +1215,7 @@
     "answer": [
       1
     ],
-    "images": [
-      "/data/images/block2/q11_1.png"
-    ],
+    "images": [],
     "explanation": ""
   },
   {
@@ -1288,7 +1292,7 @@
       1
     ],
     "images": [
-      "/data/images/block2/q15_1.png"
+      "/data/images/block2/q15_1.jpeg"
     ],
     "explanation": ""
   },
@@ -1310,7 +1314,7 @@
       5
     ],
     "images": [
-      "/data/images/block2/q16_1.png"
+      "/data/images/block2/q16_1.jpeg"
     ],
     "explanation": ""
   },
@@ -1465,9 +1469,7 @@
     "answer": [
       2
     ],
-    "images": [
-      "/data/images/block2/q24_1.png"
-    ],
+    "images": [],
     "explanation": ""
   },
   {
@@ -1798,7 +1800,7 @@
       4
     ],
     "images": [
-      "/data/images/block2/q41_1.png"
+      "/data/images/block2/q41_1.jpeg"
     ],
     "explanation": ""
   },
@@ -1819,9 +1821,7 @@
       1,
       4
     ],
-    "images": [
-      "/data/images/block2/q42_1.png"
-    ],
+    "images": [],
     "explanation": ""
   },
   {
@@ -1841,9 +1841,7 @@
       2,
       3
     ],
-    "images": [
-      "/data/images/block2/q43_1.png"
-    ],
+    "images": [],
     "explanation": ""
   },
   {
@@ -1863,7 +1861,7 @@
       3
     ],
     "images": [
-      "/data/images/block2/q44_1.png"
+      "/data/images/block2/q44_1.jpeg"
     ],
     "explanation": ""
   },
@@ -1884,7 +1882,8 @@
       4
     ],
     "images": [
-      "/data/images/block2/q45_1.png"
+      "/data/images/block2/q45_1.jpeg",
+      "/data/images/block2/q45_2.jpeg"
     ],
     "explanation": ""
   },
@@ -1905,7 +1904,7 @@
       5
     ],
     "images": [
-      "/data/images/block2/q46_1.png"
+      "/data/images/block2/q46_1.jpeg"
     ],
     "explanation": ""
   },
@@ -1964,7 +1963,7 @@
       3
     ],
     "images": [
-      "/data/images/block2/q49_1.png"
+      "/data/images/block2/q49_1.jpeg"
     ],
     "explanation": ""
   },
@@ -2003,7 +2002,9 @@
     "answer": [
       3
     ],
-    "images": [],
+    "images": [
+      "/data/images/block3/q1_1.jpeg"
+    ],
     "explanation": ""
   },
   {
@@ -2258,7 +2259,7 @@
       5
     ],
     "images": [
-      "/data/images/block3/q14_1.png"
+      "/data/images/block3/q14_1.jpeg"
     ],
     "explanation": ""
   },
@@ -2280,7 +2281,7 @@
       5
     ],
     "images": [
-      "/data/images/block3/q15_1.png"
+      "/data/images/block3/q15_1.jpeg"
     ],
     "explanation": ""
   },
@@ -2377,9 +2378,7 @@
     "answer": [
       3
     ],
-    "images": [
-      "/data/images/block3/q20_1.png"
-    ],
+    "images": [],
     "explanation": ""
   },
   {
@@ -2571,7 +2570,7 @@
       3
     ],
     "images": [
-      "/data/images/block3/q30_1.png"
+      "/data/images/block3/q30_1.jpeg"
     ],
     "explanation": ""
   },
@@ -2650,7 +2649,7 @@
       5
     ],
     "images": [
-      "/data/images/block3/q34_1.png"
+      "/data/images/block3/q34_1.jpeg"
     ],
     "explanation": ""
   },
@@ -2709,7 +2708,9 @@
     "answer": [
       4
     ],
-    "images": [],
+    "images": [
+      "/data/images/block3/q37_1.jpeg"
+    ],
     "explanation": ""
   },
   {
@@ -2747,7 +2748,9 @@
     "answer": [
       4
     ],
-    "images": [],
+    "images": [
+      "/data/images/block3/q39_1.jpeg"
+    ],
     "explanation": ""
   },
   {
@@ -2843,7 +2846,9 @@
     "answer": [
       3
     ],
-    "images": [],
+    "images": [
+      "/data/images/block3/q44_1.jpeg"
+    ],
     "explanation": ""
   },
   {
@@ -3097,7 +3102,7 @@
       2
     ],
     "images": [
-      "/data/images/block4/q5_1.png"
+      "/data/images/block4/q5_1.jpeg"
     ],
     "explanation": ""
   },
@@ -3274,7 +3279,9 @@
     "answer": [
       2
     ],
-    "images": [],
+    "images": [
+      "/data/images/block4/q14_1.jpeg"
+    ],
     "explanation": ""
   },
   {
@@ -3758,7 +3765,7 @@
       5
     ],
     "images": [
-      "/data/images/block4/q39_1.png"
+      "/data/images/block4/q39_1.jpeg"
     ],
     "explanation": ""
   },
@@ -3778,7 +3785,9 @@
     "answer": [
       2
     ],
-    "images": [],
+    "images": [
+      "/data/images/block4/q40_1.jpeg"
+    ],
     "explanation": ""
   },
   {
@@ -3817,9 +3826,7 @@
       1,
       3
     ],
-    "images": [
-      "/data/images/block4/q42_1.png"
-    ],
+    "images": [],
     "explanation": ""
   },
   {
@@ -3839,7 +3846,7 @@
       5
     ],
     "images": [
-      "/data/images/block4/q43_1.png"
+      "/data/images/block4/q43_1.jpeg"
     ],
     "explanation": ""
   },
@@ -3897,7 +3904,9 @@
     "answer": [
       3
     ],
-    "images": [],
+    "images": [
+      "/data/images/block4/q46_1.jpeg"
+    ],
     "explanation": ""
   },
   {
@@ -4035,7 +4044,9 @@
       2
     ],
     "images": [
-      "/data/images/block5/q1_1.png"
+      "/data/images/block5/q1_1.jpeg",
+      "/data/images/block5/q1_2.jpeg",
+      "/data/images/block5/q1_3.jpeg"
     ],
     "explanation": ""
   },
@@ -4056,7 +4067,10 @@
       4
     ],
     "images": [
-      "/data/images/block5/q2_1.png"
+      "/data/images/block5/q2_1.jpeg",
+      "/data/images/block5/q2_2.jpeg",
+      "/data/images/block5/q2_3.jpeg",
+      "/data/images/block5/q2_4.jpeg"
     ],
     "explanation": ""
   },
@@ -4077,7 +4091,7 @@
       3
     ],
     "images": [
-      "/data/images/block5/q3_1.png"
+      "/data/images/block5/q3_1.jpeg"
     ],
     "explanation": ""
   },
@@ -4098,7 +4112,7 @@
       2
     ],
     "images": [
-      "/data/images/block5/q4_1.png"
+      "/data/images/block5/q4_1.jpeg"
     ],
     "explanation": ""
   },
@@ -4254,7 +4268,7 @@
       3
     ],
     "images": [
-      "/data/images/block5/q12_1.png"
+      "/data/images/block5/q12_1.jpeg"
     ],
     "explanation": ""
   },
@@ -4295,7 +4309,7 @@
       3
     ],
     "images": [
-      "/data/images/block5/q14_1.png"
+      "/data/images/block5/q14_1.jpeg"
     ],
     "explanation": ""
   },
@@ -4433,7 +4447,9 @@
     "answer": [
       1
     ],
-    "images": [],
+    "images": [
+      "/data/images/block5/q21_1.jpeg"
+    ],
     "explanation": ""
   },
   {
@@ -4472,7 +4488,7 @@
       2
     ],
     "images": [
-      "/data/images/block5/q23_1.png"
+      "/data/images/block5/q23_1.jpeg"
     ],
     "explanation": ""
   },
@@ -4492,9 +4508,7 @@
     "answer": [
       1
     ],
-    "images": [
-      "/data/images/block5/q24_1.png"
-    ],
+    "images": [],
     "explanation": ""
   },
   {
@@ -4533,7 +4547,7 @@
       4
     ],
     "images": [
-      "/data/images/block5/q26_1.png"
+      "/data/images/block5/q26_1.jpeg"
     ],
     "explanation": ""
   },
@@ -4573,7 +4587,9 @@
       2
     ],
     "images": [
-      "/data/images/block5/q28_1.png"
+      "/data/images/block5/q28_1.jpeg",
+      "/data/images/block5/q28_2.jpeg",
+      "/data/images/block5/q28_3.jpeg"
     ],
     "explanation": ""
   },
@@ -4733,7 +4749,7 @@
       4
     ],
     "images": [
-      "/data/images/block5/q36_1.png"
+      "/data/images/block5/q36_1.jpeg"
     ],
     "explanation": ""
   },
@@ -4754,7 +4770,8 @@
       3
     ],
     "images": [
-      "/data/images/block5/q37_1.png"
+      "/data/images/block5/q37_1.jpeg",
+      "/data/images/block5/q37_2.jpeg"
     ],
     "explanation": ""
   },
@@ -4795,7 +4812,8 @@
       2
     ],
     "images": [
-      "/data/images/block5/q39_1.png"
+      "/data/images/block5/q39_1.jpeg",
+      "/data/images/block5/q39_2.jpeg"
     ],
     "explanation": ""
   },
@@ -4816,7 +4834,8 @@
       1
     ],
     "images": [
-      "/data/images/block5/q40_1.png"
+      "/data/images/block5/q40_1.jpeg",
+      "/data/images/block5/q40_2.jpeg"
     ],
     "explanation": ""
   },
@@ -4837,7 +4856,7 @@
       2
     ],
     "images": [
-      "/data/images/block5/q41_1.png"
+      "/data/images/block5/q41_1.jpeg"
     ],
     "explanation": ""
   },
@@ -4858,7 +4877,7 @@
       3
     ],
     "images": [
-      "/data/images/block5/q42_1.png"
+      "/data/images/block5/q42_1.jpeg"
     ],
     "explanation": ""
   },
@@ -4879,7 +4898,7 @@
       3
     ],
     "images": [
-      "/data/images/block5/q43_1.png"
+      "/data/images/block5/q43_1.jpeg"
     ],
     "explanation": ""
   },
@@ -4900,7 +4919,7 @@
       1
     ],
     "images": [
-      "/data/images/block5/q44_1.png"
+      "/data/images/block5/q44_1.jpeg"
     ],
     "explanation": ""
   },
@@ -4921,7 +4940,7 @@
       3
     ],
     "images": [
-      "/data/images/block5/q45_1.png"
+      "/data/images/block5/q45_1.jpeg"
     ],
     "explanation": ""
   },
@@ -4984,7 +5003,10 @@
       5
     ],
     "images": [
-      "/data/images/block6/q2_1.png"
+      "/data/images/block6/q2_1.jpeg",
+      "/data/images/block6/q2_2.jpeg",
+      "/data/images/block6/q2_3.jpeg",
+      "/data/images/block6/q2_4.jpeg"
     ],
     "explanation": ""
   },
@@ -5143,9 +5165,7 @@
     "answer": [
       5
     ],
-    "images": [
-      "/data/images/block6/q10_1.png"
-    ],
+    "images": [],
     "explanation": ""
   },
   {
@@ -5165,7 +5185,8 @@
       1
     ],
     "images": [
-      "/data/images/block6/q11_1.png"
+      "/data/images/block6/q11_1.jpeg",
+      "/data/images/block6/q11_2.jpeg"
     ],
     "explanation": ""
   },
@@ -5307,7 +5328,7 @@
       5
     ],
     "images": [
-      "/data/images/block6/q18_1.png"
+      "/data/images/block6/q18_1.jpeg"
     ],
     "explanation": ""
   },
@@ -5327,9 +5348,7 @@
     "answer": [
       2
     ],
-    "images": [
-      "/data/images/block6/q19_1.png"
-    ],
+    "images": [],
     "explanation": ""
   },
   {
@@ -5349,7 +5368,7 @@
       5
     ],
     "images": [
-      "/data/images/block6/q20_1.png"
+      "/data/images/block6/q20_1.jpeg"
     ],
     "explanation": ""
   },
@@ -5370,7 +5389,8 @@
       1
     ],
     "images": [
-      "/data/images/block6/q21_1.png"
+      "/data/images/block6/q21_1.jpeg",
+      "/data/images/block6/q21_2.jpeg"
     ],
     "explanation": ""
   },
@@ -5467,9 +5487,9 @@
       5
     ],
     "images": [
-      "/data/images/block6/q26_1.png",
-      "/data/images/block6/q26_2.png",
-      "/data/images/block6/q26_3.png"
+      "/data/images/block6/q26_1.jpeg",
+      "/data/images/block6/q26_2.jpeg",
+      "/data/images/block6/q26_3.jpeg"
     ],
     "explanation": ""
   },
@@ -5548,7 +5568,7 @@
       2
     ],
     "images": [
-      "/data/images/block6/q30_1.png"
+      "/data/images/block6/q30_1.jpeg"
     ],
     "explanation": ""
   },
@@ -5571,7 +5591,7 @@
       5
     ],
     "images": [
-      "/data/images/block6/q31_1.png"
+      "/data/images/block6/q31_1.jpeg"
     ],
     "explanation": ""
   },
@@ -5610,9 +5630,7 @@
     "answer": [
       4
     ],
-    "images": [
-      "/data/images/block6/q33_1.png"
-    ],
+    "images": [],
     "explanation": ""
   },
   {
@@ -5670,7 +5688,8 @@
       5
     ],
     "images": [
-      "/data/images/block6/q36_1.png"
+      "/data/images/block6/q36_1.jpeg",
+      "/data/images/block6/q36_2.jpeg"
     ],
     "explanation": ""
   },
@@ -5692,8 +5711,8 @@
       4
     ],
     "images": [
-      "/data/images/block6/q37_1.png",
-      "/data/images/block6/q37_2.png"
+      "/data/images/block6/q37_1.jpeg",
+      "/data/images/block6/q37_2.jpeg"
     ],
     "explanation": ""
   },
@@ -5752,9 +5771,7 @@
     "answer": [
       1
     ],
-    "images": [
-      "/data/images/block6/q40_1.png"
-    ],
+    "images": [],
     "explanation": ""
   },
   {
@@ -5774,9 +5791,7 @@
       2,
       4
     ],
-    "images": [
-      "/data/images/block6/q41_1.png"
-    ],
+    "images": [],
     "explanation": ""
   },
   {
@@ -5796,7 +5811,8 @@
       1
     ],
     "images": [
-      "/data/images/block6/q42_1.png"
+      "/data/images/block6/q42_1.jpeg",
+      "/data/images/block6/q42_2.jpeg"
     ],
     "explanation": ""
   },
@@ -5817,7 +5833,9 @@
       4
     ],
     "images": [
-      "/data/images/block6/q43_1.png"
+      "/data/images/block6/q43_1.jpeg",
+      "/data/images/block6/q43_2.jpeg",
+      "/data/images/block6/q43_3.jpeg"
     ],
     "explanation": ""
   },
@@ -5919,7 +5937,8 @@
       1
     ],
     "images": [
-      "/data/images/block6/q48_1.png"
+      "/data/images/block6/q48_1.jpeg",
+      "/data/images/block6/q48_2.jpeg"
     ],
     "explanation": ""
   },
@@ -5941,7 +5960,8 @@
       3
     ],
     "images": [
-      "/data/images/block6/q49_1.png"
+      "/data/images/block6/q49_1.jpeg",
+      "/data/images/block6/q49_2.jpeg"
     ],
     "explanation": ""
   },
@@ -5964,7 +5984,7 @@
       5
     ],
     "images": [
-      "/data/images/block6/q50_1.png"
+      "/data/images/block6/q50_1.jpeg"
     ],
     "explanation": ""
   },
@@ -5985,7 +6005,7 @@
       5
     ],
     "images": [
-      "/data/images/block6/q51_1.png"
+      "/data/images/block6/q51_1.jpeg"
     ],
     "explanation": ""
   },
@@ -6026,9 +6046,7 @@
     "answer": [
       5
     ],
-    "images": [
-      "/data/images/block7/q1_1.png"
-    ],
+    "images": [],
     "explanation": ""
   },
   {
@@ -6047,9 +6065,7 @@
     "answer": [
       4
     ],
-    "images": [
-      "/data/images/block7/q2_1.png"
-    ],
+    "images": [],
     "explanation": ""
   },
   {
@@ -6089,7 +6105,8 @@
       5
     ],
     "images": [
-      "/data/images/block7/q4_1.png"
+      "/data/images/block7/q4_1.jpeg",
+      "/data/images/block7/q4_2.jpeg"
     ],
     "explanation": ""
   },
@@ -6110,7 +6127,8 @@
       1
     ],
     "images": [
-      "/data/images/block7/q5_1.png"
+      "/data/images/block7/q5_1.jpeg",
+      "/data/images/block7/q5_2.jpeg"
     ],
     "explanation": ""
   },
@@ -6170,9 +6188,7 @@
     "answer": [
       1
     ],
-    "images": [
-      "/data/images/block7/q8_1.png"
-    ],
+    "images": [],
     "explanation": ""
   },
   {
@@ -6191,7 +6207,11 @@
     "answer": [
       1
     ],
-    "images": [],
+    "images": [
+      "/data/images/block7/q9_1.jpeg",
+      "/data/images/block7/q9_2.jpeg",
+      "/data/images/block7/q9_3.jpeg"
+    ],
     "explanation": ""
   },
   {
@@ -6249,9 +6269,7 @@
     "answer": [
       1
     ],
-    "images": [
-      "/data/images/block7/q12_1.png"
-    ],
+    "images": [],
     "explanation": ""
   },
   {
@@ -6292,7 +6310,7 @@
       5
     ],
     "images": [
-      "/data/images/block7/q14_1.png"
+      "/data/images/block7/q14_1.jpeg"
     ],
     "explanation": ""
   },
@@ -6407,7 +6425,9 @@
     "answer": [
       3
     ],
-    "images": [],
+    "images": [
+      "/data/images/block7/q20_1.jpeg"
+    ],
     "explanation": ""
   },
   {
@@ -6467,7 +6487,7 @@
       1
     ],
     "images": [
-      "/data/images/block7/q23_1.png"
+      "/data/images/block7/q23_1.jpeg"
     ],
     "explanation": ""
   },
@@ -7105,9 +7125,7 @@
     "answer": [
       2
     ],
-    "images": [
-      "/data/images/block8/q6_1.png"
-    ],
+    "images": [],
     "explanation": ""
   },
   {
@@ -7126,9 +7144,7 @@
     "answer": [
       1
     ],
-    "images": [
-      "/data/images/block8/q7_1.png"
-    ],
+    "images": [],
     "explanation": ""
   },
   {
@@ -7517,9 +7533,7 @@
     "answer": [
       4
     ],
-    "images": [
-      "/data/images/block8/q27_1.png"
-    ],
+    "images": [],
     "explanation": ""
   },
   {
@@ -7539,7 +7553,7 @@
       5
     ],
     "images": [
-      "/data/images/block8/q28_1.png"
+      "/data/images/block8/q28_1.jpeg"
     ],
     "explanation": ""
   },
@@ -7617,7 +7631,7 @@
       1
     ],
     "images": [
-      "/data/images/block8/q32_1.png"
+      "/data/images/block8/q32_1.jpeg"
     ],
     "explanation": ""
   },
@@ -7638,7 +7652,7 @@
       4
     ],
     "images": [
-      "/data/images/block8/q33_1.png"
+      "/data/images/block8/q33_1.jpeg"
     ],
     "explanation": ""
   },
@@ -7797,7 +7811,8 @@
       4
     ],
     "images": [
-      "/data/images/block8/q41_1.png"
+      "/data/images/block8/q41_1.jpeg",
+      "/data/images/block8/q41_2.jpeg"
     ],
     "explanation": ""
   },
@@ -7837,9 +7852,7 @@
       1,
       5
     ],
-    "images": [
-      "/data/images/block8/q43_1.png"
-    ],
+    "images": [],
     "explanation": ""
   },
   {
@@ -7897,7 +7910,8 @@
       4
     ],
     "images": [
-      "/data/images/block8/q46_1.png"
+      "/data/images/block8/q46_1.jpeg",
+      "/data/images/block8/q46_2.jpeg"
     ],
     "explanation": ""
   },
@@ -7938,7 +7952,7 @@
       4
     ],
     "images": [
-      "/data/images/block8/q48_1.png"
+      "/data/images/block8/q48_1.jpeg"
     ],
     "explanation": ""
   }

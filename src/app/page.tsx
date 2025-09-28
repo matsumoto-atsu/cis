@@ -1,22 +1,27 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import styles from "./page.module.css";
 
 const quizCatalog = [
   {
     year: 2023,
-    blocks: [1,2,3,4,5,6,7,8],
-    description: "卒試2023過去問"
+    blocks: [1, 2, 3, 4, 5, 6, 7, 8],
+    description: "卒試2023 過去問セット",
   },
   {
     year: 2024,
-    blocks: [1,2,3,4,5,6,7,8],
-    description: "卒試2024過去問"
+    blocks: [1, 2, 3, 4, 5, 6, 7, 8],
+    description: "卒試2024 過去問セット",
   },
 ];
 
 export default function Page() {
   return (
     <main className={styles.main}>
+      <div className={styles.utilLinks}>
+        <Link href="/pdf-check" className={styles.utilLink}>
+          PDF確認
+        </Link>
+      </div>
       <section className={styles.hero}>
         <span className={styles.badge}>Preview</span>
         <h1 className={styles.title}>CIS Quiz</h1>
@@ -24,8 +29,10 @@ export default function Page() {
           公衆衛生・臨床医学の知識確認に使えるコンパクトなクイズツール。年次・ブロックごとに問題を選んで、すばやく復習しましょう。
         </p>
         <div className={styles.meta}>
-          <span>現在: <strong>2023 / Block 1</strong> を収録</span>
-          <span>今後追加予定: 解説ノート・進捗分析</span>
+          <span>
+            現在: <strong>2023 / Block 1</strong> を収録
+          </span>
+          <span>今後追加予定: 解説ノートや正答率の集計</span>
         </div>
       </section>
 
@@ -43,8 +50,12 @@ export default function Page() {
                 </span>
               </header>
               <div className={styles.blockButtons}>
-                {blocks.map(block => (
-                  <Link key={block} href={`/quiz/${year}/${block}`} className={styles.blockButton}>
+                {blocks.map((block) => (
+                  <Link
+                    key={block}
+                    href={`/quiz/${year}/${block}`}
+                    className={styles.blockButton}
+                  >
                     Block {block}
                   </Link>
                 ))}
