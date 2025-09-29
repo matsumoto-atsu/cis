@@ -3,9 +3,19 @@ import styles from "./page.module.css";
 
 const quizCatalog = [
   {
+    year: 2023,
+    blocks: [1, 2, 3, 4, 5, 6, 7, 8],
+    description: "卒試2023 過去問セット",
+  },
+  {
     year: 2024,
     blocks: [1, 2, 3, 4, 5, 6, 7, 8],
     description: "卒試2024 過去問セット",
+  },
+  {
+    year: 20242,
+    blocks: [1, 2, 3, 4, 5, 6, 7, 8],
+    description: "卒試2024再試　過去問セット",
   },
   {
     year: 2025,
@@ -32,7 +42,7 @@ export default function Page() {
           <span>
             現在: <strong>2024年度過去問</strong> を収録
           </span>
-          <span>今後追加予定: 解説ノートや正答率の集計</span>
+          <span>2023の過去問は画像として問題文がpdfに埋め込まれてたのでそのまま貼り付け...</span>
         </div>
       </section>
 

@@ -25,6 +25,7 @@ export default function QuestionCard({ q, year, block, onAnswered, onNext, canAd
   const key = qKey(year, block, q.number);
   const [picks, setPicks] = useState<number[]>([]);
   const [graded, setGraded] = useState(false);
+  const [activeImage, setActiveImage] = useState<{ src: string; alt: string } | null>(null);
   const skipSave = useRef(true);
 
   useEffect(() => {
@@ -41,6 +42,22 @@ export default function QuestionCard({ q, year, block, onAnswered, onNext, canAd
     }
     setUserAnswer(key, picks);
   }, [key, picks]);
+
+  useEffect(() => {
+    if (!activeImage) return;
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setActiveImage(null);
+      }
+    };
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [activeImage]);
 
   const isMultiple = q.type !== "single";
   const inputType = isMultiple ? "checkbox" : "radio";
@@ -80,6 +97,14 @@ export default function QuestionCard({ q, year, block, onAnswered, onNext, canAd
     setGraded(false);
   }
 
+  function openImage(src: string, alt: string) {
+    setActiveImage({ src, alt });
+  }
+
+  function closeImage() {
+    setActiveImage(null);
+  }
+
   function grade() {
     const ok = eqSet(picks, q.answer);
     setGraded(true);
@@ -105,19 +130,29 @@ export default function QuestionCard({ q, year, block, onAnswered, onNext, canAd
 
       {q.images && q.images.length > 0 && (
         <div className={styles.mediaGrid}>
-          {q.images.map((src, idx) => (
-            <figure key={src} className={styles.mediaItem}>
-              <Image
-                src={src}
-                alt={`問題 ${q.number} の参考画像 ${idx + 1}`}
-                width={1024}
-                height={768}
-                className={styles.mediaImage}
-                sizes="(max-width: 640px) 100vw, 720px"
-                loading={idx === 0 ? "eager" : "lazy"}
-              />
-            </figure>
-          ))}
+          {q.images.map((src, idx) => {
+            const alt = `問${q.number} の参照画像${idx + 1}`;
+            return (
+              <figure key={src} className={styles.mediaItem}>
+                <button
+                  type="button"
+                  className={styles.mediaButton}
+                  onClick={() => openImage(src, alt)}
+                  aria-label={`${alt} を拡大表示`}
+                >
+                  <Image
+                    src={src}
+                    alt={alt}
+                    width={1024}
+                    height={768}
+                    className={styles.mediaImage}
+                    sizes="(max-width: 640px) 100vw, 720px"
+                    loading={idx === 0 ? "eager" : "lazy"}
+                  />
+                </button>
+              </figure>
+            );
+          })}
         </div>
       )}
 
@@ -190,6 +225,38 @@ export default function QuestionCard({ q, year, block, onAnswered, onNext, canAd
           <button type="button" onClick={onNext} className={styles.nextButton}>
             次の問題へ
           </button>
+        </div>
+      )}
+
+      {activeImage && (
+        <div
+          className={styles.imageOverlay}
+          role="dialog"
+          aria-modal="true"
+          aria-label={`${activeImage.alt} の拡大表示`}
+          onClick={closeImage}
+        >
+          <div className={styles.overlayContent} onClick={(event) => event.stopPropagation()}>
+            <button
+              type="button"
+              className={styles.overlayClose}
+              onClick={closeImage}
+              aria-label="閉じる"
+            >
+              ×
+            </button>
+            <div className={styles.overlayImageBox}>
+              <Image
+                src={activeImage.src}
+                alt={activeImage.alt}
+                width={1280}
+                height={960}
+                className={styles.overlayImage}
+                sizes="90vw"
+                priority
+              />
+            </div>
+          </div>
         </div>
       )}
     </div>
