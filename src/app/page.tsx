@@ -40,7 +40,7 @@ export default function Page() {
         </p>
         <div className={styles.meta}>
           <span>
-            現在: <strong>2024年度過去問</strong> を収録
+            現在: <strong>2024年度本試、再試、2023年度本試過去問</strong> を収録
           </span>
           <span>2023の過去問は画像として問題文がpdfに埋め込まれてたのでそのまま貼り付け...</span>
         </div>
