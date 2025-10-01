@@ -1,0 +1,15 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.name {
+  font-weight: 600;
+}
+
+.loading {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+

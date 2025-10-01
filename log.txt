@@ -1,0 +1,39 @@
+Timestamp: 2025-09-30 14:31:16
+
+Git Status:
+ M .gitignore
+ M README.md
+ M package-lock.json
+ M package.json
+ M src/app/layout.tsx
+?? .env.example
+?? log.txt
+?? prisma/
+?? src/app/api/
+?? src/app/layout.module.css
+?? src/app/login/
+?? src/components/AuthStatus.module.css
+?? src/components/AuthStatus.tsx
+?? src/components/LoginForms.module.css
+?? src/components/LoginForms.tsx
+?? src/components/SessionProvider.tsx
+?? src/lib/auth.ts
+?? src/lib/prisma.ts
+?? src/types/
+
+Summary:
+- NextAuth switched to credentials provider backed by Prisma and SQLite with hashed passwords.
+- Added /login page with registration + login forms, header auth controls, and session handling.
+- Prisma schema, migration, and client helper added for user storage.
+- Updated env template, README, gitignore, and dependencies; lint passing.
+
+Recent Commands:
+- npm install next-auth
+- npm install bcryptjs @prisma/client
+- npm install --save-dev prisma @types/bcryptjs
+- npx prisma migrate dev --name init-auth
+- npm run lint
+
+Pending Actions:
+- Fill .env.local with NEXTAUTH_SECRET, NEXTAUTH_URL, DATABASE_URL.
+- Provision persistent database for production and run 'npx prisma migrate deploy' during deployment.
