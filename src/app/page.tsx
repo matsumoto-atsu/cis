@@ -43,6 +43,7 @@ export default function Page() {
             現在: <strong>2024年度本試、再試、2023年度本試過去問</strong> を収録
           </span>
           <span>2023の過去問は画像として問題文がpdfに埋め込まれてたのでそのまま貼り付け...</span>
+          <span>今後の予定：問題の解説にmedu4テキストの関連ページを表示</span>
         </div>
       </section>
 
