@@ -1,16 +1,19 @@
+export type StatusFlag = "reviewed" | "in-revision" | "archived";
+
 export interface SectionOverride {
   name?: string;
   summary?: string;
   source?: string;
-  status?: "reviewed" | "in-revision" | "archived";
+  status?: StatusFlag;
   badges?: string[];
+  order?: number;
 }
 
 export interface ChapterOverride {
   name?: string;
   summary?: string;
   order?: number;
-  status?: "reviewed" | "in-revision" | "archived";
+  status?: StatusFlag;
   badges?: string[];
   sections?: Record<string, SectionOverride>;
 }
@@ -21,109 +24,109 @@ export interface DepartmentOverride {
   description?: string;
   order?: number;
   updatedAt?: string;
-  status?: "reviewed" | "in-revision" | "archived";
+  status?: StatusFlag;
   badges?: string[];
   chapters?: Record<string, ChapterOverride>;
 }
 
 export const departmentOverrides: Record<string, DepartmentOverride> = {
   kokyu: {
-    name: "呼吸器",
-    description: "呼吸器疾患の診断と治療のまとめ",
+    name: "Respiratory",
+    description: "Diagnosis and management of respiratory diseases",
     order: 10,
   },
   junkan: {
-    name: "循環器",
-    description: "循環器疾患の病態とマネジメント",
+    name: "Cardiovascular",
+    description: "Pathophysiology and management of cardiovascular disease",
     order: 20,
   },
   blood: {
-    name: "血液・造血器",
-    description: "血液疾患の各論",
+    name: "Hematology",
+    description: "Core and advanced topics in hematology",
     order: 30,
   },
   immune: {
-    name: "免疫・膠原病",
+    name: "Immunology & Rheumatology",
     order: 40,
   },
   infection: {
-    name: "感染症",
+    name: "Infectious Disease",
     order: 50,
   },
   jin: {
-    name: "腎臓",
+    name: "Nephrology",
     order: 60,
   },
   kantansui: {
-    name: "肝胆膵",
+    name: "Hepatobiliary & Pancreas",
     order: 70,
   },
   syoukakan: {
-    name: "消化器",
+    name: "Gastroenterology",
     order: 80,
   },
   naitai: {
-    name: "内分泌・代謝",
+    name: "Endocrine & Metabolism",
     order: 90,
   },
   shinkei: {
-    name: "神経",
+    name: "Neurology",
     order: 100,
   },
   sansyoro1sampu: {
-    name: "産科",
+    name: "Obstetrics & Gynecology",
     order: 110,
   },
   sansyoro2syouni: {
-    name: "小児",
+    name: "Pediatrics",
     order: 120,
   },
   sansyoro3rounen: {
-    name: "老年",
+    name: "Geriatrics",
     order: 130,
   },
   kyucyumako1qq: {
-    name: "救急・集中治療 I",
+    name: "Emergency & Critical Care I",
     order: 140,
   },
   kyucyumako2cyuma: {
-    name: "救急・集中治療 II (中毒)",
+    name: "Emergency & Critical Care II (Toxicology)",
     order: 150,
   },
   kyucyumako3phealth: {
-    name: "救急・集中治療 III (公衆衛生)",
+    name: "Emergency & Critical Care III (Public Health)",
     order: 160,
   },
   minor1seikei: {
-    name: "整形外科",
+    name: "Orthopedics",
     order: 170,
   },
   minor2ganka: {
-    name: "眼科",
+    name: "Ophthalmology",
     order: 180,
   },
   minor3jibika: {
-    name: "耳鼻咽喉科",
+    name: "Otolaryngology",
     order: 190,
   },
   minor4hinyouki: {
-    name: "泌尿器科",
+    name: "Urology",
     order: 200,
   },
   minor5mental: {
-    name: "精神科",
+    name: "Psychiatry",
     order: 210,
   },
   minor6hifu: {
-    name: "皮膚科",
+    name: "Dermatology",
     order: 220,
   },
   minor7housya: {
-    name: "放射線科",
+    name: "Radiology",
     order: 230,
   },
-  2023: {
-    name: "2023 年資料",
-    order: 240,
+  "2023": {
+    name: "2023 Reference Materials",
+    order: 300,
   },
 };

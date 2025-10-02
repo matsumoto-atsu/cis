@@ -49,3 +49,4 @@ Run `npx prisma migrate deploy` as part of your deployment workflow to apply sch
 - Content metadata overrides live in `src/data/contentConfig.ts`; update this file to adjust names, order, or status badges for each department/chapter/section.
 
 
+  - Run `npm run generate:content` whenever you add or remove images under `public/data/pdfs_images` (this runs automatically for `npm run dev` and `npm run build`).

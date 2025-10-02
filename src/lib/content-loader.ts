@@ -1,11 +1,11 @@
-import { promises as fs } from "fs";
-import path from "path";
-import { cache } from "react";
-import { departmentOverrides, type DepartmentOverride, type ChapterOverride, type SectionOverride } from "@/data/contentConfig";
-
-const DATA_ROOT = path.join(process.cwd(), "public", "data", "pdfs_images");
-
-const IMAGE_PATTERN = /^(\d+)_([0-9]+)(?:_([0-9]+))?\.(png|jpg|jpeg|webp)$/i;
+﻿import { cache } from "react";
+import manifest from "@/data/contentManifest.json";
+import {
+  departmentOverrides,
+  type DepartmentOverride,
+  type ChapterOverride,
+  type SectionOverride,
+} from "@/data/contentConfig";
 
 export type StatusFlag = "reviewed" | "in-revision" | "archived";
 
@@ -34,7 +34,7 @@ export interface ChapterSummary {
 }
 
 export interface SectionSummary {
-  id: string; // e.g. 1-2
+  id: string;
   name: string;
   summary?: string;
   order: number;
@@ -67,6 +67,37 @@ export interface SectionDetail extends SectionSummary {
 
 export interface DepartmentDetail extends DepartmentSummary {
   chapters: ChapterSummary[];
+}
+
+interface ManifestImage {
+  fileName: string;
+  page: number;
+  updatedAt?: string;
+}
+
+interface ManifestSection {
+  id: string;
+  chapterId: string;
+  sectionId: string;
+  updatedAt?: string;
+  images: ManifestImage[];
+}
+
+interface ManifestChapter {
+  id: string;
+  updatedAt?: string;
+  sections: ManifestSection[];
+}
+
+interface ManifestDepartment {
+  slug: string;
+  updatedAt?: string;
+  chapters: ManifestChapter[];
+}
+
+interface ContentManifest {
+  generatedAt: string;
+  departments: ManifestDepartment[];
 }
 
 interface SectionInternal {
@@ -107,6 +138,8 @@ interface DepartmentInternal {
   imageCount: number;
 }
 
+const manifestData = manifest as ContentManifest;
+
 function getOverride(slug: string): DepartmentOverride | undefined {
   return departmentOverrides[slug];
 }
@@ -123,17 +156,11 @@ function getSectionOverride(
 }
 
 function formatChapterName(chapterId: string, override?: ChapterOverride): string {
-  if (override?.name) {
-    return override.name;
-  }
-  return `Chapter ${chapterId}`;
+  return override?.name ?? `Chapter ${chapterId}`;
 }
 
 function formatSectionName(chapterId: string, sectionId: string, override?: SectionOverride): string {
-  if (override?.name) {
-    return override.name;
-  }
-  return `${chapterId}-${sectionId}`;
+  return override?.name ?? `${chapterId}-${sectionId}`;
 }
 
 function defaultOrder(value: string, overrideOrder?: number): number {
@@ -152,148 +179,122 @@ function toBadges(override?: { badges?: string[] }): string[] {
   return override?.badges ?? [];
 }
 
-async function readDepartmentStructure(slug: string): Promise<DepartmentInternal | null> {
-  const dirPath = path.join(DATA_ROOT, slug);
-  try {
-    const dirEntries = await fs.readdir(dirPath, { withFileTypes: true });
-    const fileEntries = dirEntries.filter((entry) => entry.isFile());
+function buildSectionInternal(
+  slug: string,
+  chapterId: string,
+  manifestSection: ManifestSection,
+  chapterOverride: ChapterOverride | undefined,
+): SectionInternal {
+  const sectionOverride = getSectionOverride(chapterOverride, manifestSection.sectionId);
+  const name = formatSectionName(chapterId, manifestSection.sectionId, sectionOverride);
 
-    const departmentOverride = getOverride(slug);
+  const images: SectionImage[] = manifestSection.images.map((image) => ({
+    fileName: image.fileName,
+    url: `/data/pdfs_images/${slug}/${image.fileName}`,
+    page: image.page,
+    alt: `${name} (ページ ${image.page})`,
+    updatedAt: image.updatedAt,
+  }));
 
-    const chapterMap = new Map<string, { data: ChapterInternal; sections: Map<string, SectionInternal> }>();
-    let latestUpdate: Date | undefined;
-    let imageCount = 0;
+  const order = defaultOrder(manifestSection.sectionId, sectionOverride?.order);
 
-    const fileStatsPromises = fileEntries
-      .map((entry) => entry.name)
-      .filter((name) => IMAGE_PATTERN.test(name))
-      .map(async (name) => {
-        const match = name.match(IMAGE_PATTERN);
-        if (!match) {
-          return null;
-        }
-        const [, chapterRaw, sectionRaw, pageRaw] = match;
-        const chapterId = chapterRaw.replace(/^0+/, "") || "0";
-        const sectionId = sectionRaw.replace(/^0+/, "") || "0";
-        const page = pageRaw ? Number.parseInt(pageRaw, 10) : 1;
-        const filePath = path.join(dirPath, name);
-        const stat = await fs.stat(filePath);
-        const fileUpdatedAt = stat.mtime;
-        imageCount += 1;
+  return {
+    id: manifestSection.id,
+    chapterId,
+    sectionId: manifestSection.sectionId,
+    order,
+    name,
+    summary: sectionOverride?.summary,
+    badges: toBadges(sectionOverride),
+    status: toStatus(sectionOverride),
+    source: sectionOverride?.source,
+    images,
+    updatedAt: manifestSection.updatedAt,
+  };
+}
 
-        if (!latestUpdate || fileUpdatedAt > latestUpdate) {
-          latestUpdate = fileUpdatedAt;
-        }
+function buildChapterInternal(
+  slug: string,
+  manifestChapter: ManifestChapter,
+  departmentOverride: DepartmentOverride | undefined,
+): ChapterInternal {
+  const chapterOverride = getChapterOverride(departmentOverride, manifestChapter.id);
+  const name = formatChapterName(manifestChapter.id, chapterOverride);
+  const order = defaultOrder(manifestChapter.id, chapterOverride?.order);
 
-        const chapterOverride = getChapterOverride(departmentOverride, chapterId);
-        const sectionOverride = getSectionOverride(chapterOverride, sectionId);
+  const sections = manifestChapter.sections
+    .map((section) => buildSectionInternal(slug, manifestChapter.id, section, chapterOverride))
+    .sort((a, b) => a.order - b.order || a.id.localeCompare(b.id));
 
-        const chapterRecord = chapterMap.get(chapterId) ?? {
-          data: {
-            id: chapterId,
-            order: defaultOrder(chapterId, chapterOverride?.order),
-            name: formatChapterName(chapterId, chapterOverride),
-            summary: chapterOverride?.summary,
-            badges: toBadges(chapterOverride),
-            status: toStatus(chapterOverride),
-            sections: [],
-            updatedAt: undefined,
-          },
-          sections: new Map(),
-        };
+  return {
+    id: manifestChapter.id,
+    order,
+    name,
+    summary: chapterOverride?.summary,
+    badges: toBadges(chapterOverride),
+    status: toStatus(chapterOverride),
+    sections,
+    updatedAt: manifestChapter.updatedAt,
+  };
+}
 
-        if (!chapterMap.has(chapterId)) {
-          chapterMap.set(chapterId, chapterRecord);
-        }
+function buildDepartmentInternal(manifestDept: ManifestDepartment): DepartmentInternal {
+  const override = getOverride(manifestDept.slug);
+  const chapters = manifestDept.chapters
+    .map((chapter) => buildChapterInternal(manifestDept.slug, chapter, override))
+    .sort((a, b) => a.order - b.order || a.id.localeCompare(b.id));
 
-        const sectionKey = `${chapterId}-${sectionId}`;
-        const sectionRecord = chapterRecord.sections.get(sectionKey) ?? {
-          id: sectionKey,
-          chapterId,
-          sectionId,
-          order: defaultOrder(sectionId),
-          name: formatSectionName(chapterId, sectionId, sectionOverride),
-          summary: sectionOverride?.summary,
-          badges: toBadges(sectionOverride),
-          status: toStatus(sectionOverride),
-          source: sectionOverride?.source,
-          images: [],
-          updatedAt: undefined,
-        };
+  const sectionCount = chapters.reduce((acc, chapter) => acc + chapter.sections.length, 0);
+  const imageCount = chapters.reduce(
+    (acc, chapter) => acc + chapter.sections.reduce((inner, section) => inner + section.images.length, 0),
+    0,
+  );
 
-        if (!chapterRecord.sections.has(sectionKey)) {
-          chapterRecord.sections.set(sectionKey, sectionRecord);
-        }
+  const departmentOrder = override?.order ?? Number.MAX_SAFE_INTEGER;
 
-        const url = `/data/pdfs_images/${slug}/${name}`;
-        sectionRecord.images.push({
-          fileName: name,
-          url,
-          page,
-          alt: `${sectionRecord.name} (ページ ${page})`,
-          updatedAt: fileUpdatedAt.toISOString(),
-        });
+  return {
+    slug: manifestDept.slug,
+    name: override?.name ?? manifestDept.slug,
+    description: override?.description,
+    order: departmentOrder,
+    badges: toBadges(override),
+    status: toStatus(override),
+    chapters,
+    updatedAt: manifestDept.updatedAt,
+    sectionCount,
+    imageCount,
+  };
+}
 
-        const sectionUpdatedAt = sectionRecord.updatedAt ? new Date(sectionRecord.updatedAt) : undefined;
-        if (!sectionUpdatedAt || fileUpdatedAt > sectionUpdatedAt) {
-          sectionRecord.updatedAt = fileUpdatedAt.toISOString();
-        }
+const departmentMap = new Map<string, DepartmentInternal | null>();
 
-        const chapterUpdatedAt = chapterRecord.data.updatedAt ? new Date(chapterRecord.data.updatedAt) : undefined;
-        if (!chapterUpdatedAt || fileUpdatedAt > chapterUpdatedAt) {
-          chapterRecord.data.updatedAt = fileUpdatedAt.toISOString();
-        }
+function getManifestDepartment(slug: string): ManifestDepartment | undefined {
+  return manifestData.departments.find((dept) => dept.slug === slug);
+}
 
-        return null;
-      });
-
-    await Promise.all(fileStatsPromises);
-
-    const chapters: ChapterInternal[] = Array.from(chapterMap.values())
-      .map(({ data, sections }) => {
-        const sortedSections = Array.from(sections.values()).sort((a, b) => a.order - b.order);
-        data.sections = sortedSections;
-        return data;
-      })
-      .sort((a, b) => a.order - b.order);
-
-    const sectionCount = chapters.reduce((acc, chapter) => acc + chapter.sections.length, 0);
-
-    const departmentName = departmentOverride?.name ?? slug;
-    const departmentDescription = departmentOverride?.description;
-    const departmentOrder = departmentOverride?.order ?? Number.MAX_SAFE_INTEGER;
-
-    return {
-      slug,
-      name: departmentName,
-      description: departmentDescription,
-      order: departmentOrder,
-      badges: toBadges(departmentOverride),
-      status: toStatus(departmentOverride),
-      chapters,
-      updatedAt: latestUpdate ? latestUpdate.toISOString() : undefined,
-      sectionCount,
-      imageCount,
-    };
-  } catch (error) {
-    if ((error as NodeJS.ErrnoException).code === "ENOENT") {
-      return null;
-    }
-    throw error;
+async function getDepartmentInternal(slug: string): Promise<DepartmentInternal | null> {
+  if (departmentMap.has(slug)) {
+    return departmentMap.get(slug) ?? null;
   }
+  const manifestDept = getManifestDepartment(slug);
+  if (!manifestDept) {
+    departmentMap.set(slug, null);
+    return null;
+  }
+  const internal = buildDepartmentInternal(manifestDept);
+  departmentMap.set(slug, internal);
+  return internal;
 }
 
-const getDepartmentInternal = cache(async (slug: string) => readDepartmentStructure(slug));
-
-async function listDepartmentSlugs(): Promise<string[]> {
-  const entries = await fs.readdir(DATA_ROOT, { withFileTypes: true });
-  return entries.filter((entry) => entry.isDirectory()).map((entry) => entry.name);
-}
+const listDepartmentSlugs = cache(async (): Promise<string[]> => {
+  return manifestData.departments.map((dept) => dept.slug);
+});
 
 export const listDepartments = cache(async (): Promise<DepartmentSummary[]> => {
   const slugs = await listDepartmentSlugs();
   const departments = await Promise.all(slugs.map((slug) => getDepartmentInternal(slug)));
-  const summaries: DepartmentSummary[] = departments
+
+  return departments
     .filter((dept): dept is DepartmentInternal => Boolean(dept))
     .map((dept) => ({
       slug: dept.slug,
@@ -307,8 +308,6 @@ export const listDepartments = cache(async (): Promise<DepartmentSummary[]> => {
       updatedAt: dept.updatedAt,
     }))
     .sort((a, b) => a.order - b.order || a.name.localeCompare(b.name));
-
-  return summaries;
 });
 
 export async function getDepartmentDetail(slug: string): Promise<DepartmentDetail | null> {
@@ -316,6 +315,7 @@ export async function getDepartmentDetail(slug: string): Promise<DepartmentDetai
   if (!dept) {
     return null;
   }
+
   const chapters: ChapterSummary[] = dept.chapters.map((chapter) => ({
     id: chapter.id,
     name: chapter.name,
@@ -327,8 +327,6 @@ export async function getDepartmentDetail(slug: string): Promise<DepartmentDetai
     imageCount: chapter.sections.reduce((acc, section) => acc + section.images.length, 0),
     updatedAt: chapter.updatedAt,
   }));
-
-  chapters.sort((a, b) => a.order - b.order || a.id.localeCompare(b.id));
 
   return {
     slug: dept.slug,
@@ -367,8 +365,6 @@ export async function getChapterDetail(slug: string, chapterId: string): Promise
     source: section.source,
   }));
 
-  sections.sort((a, b) => a.order - b.order || a.id.localeCompare(b.id));
-
   return {
     id: chapter.id,
     name: chapter.name,
@@ -379,7 +375,7 @@ export async function getChapterDetail(slug: string, chapterId: string): Promise
     sectionCount: chapter.sections.length,
     imageCount: chapter.sections.reduce((acc, section) => acc + section.images.length, 0),
     updatedAt: chapter.updatedAt,
-    sections,
+    sections: sections.sort((a, b) => a.order - b.order || a.id.localeCompare(b.id)),
   };
 }
 
@@ -430,13 +426,12 @@ export interface SearchNode {
 }
 
 export const buildSearchIndex = cache(async (): Promise<SearchNode[]> => {
-  const slugs = await listDepartmentSlugs();
-  const departments = await Promise.all(slugs.map((slug) => getDepartmentInternal(slug)));
-
   const nodes: SearchNode[] = [];
 
-  for (const dept of departments) {
+  for (const manifestDept of manifestData.departments) {
+    const dept = await getDepartmentInternal(manifestDept.slug);
     if (!dept) continue;
+
     nodes.push({
       type: "department",
       path: [dept.slug],
@@ -465,5 +460,4 @@ export const buildSearchIndex = cache(async (): Promise<SearchNode[]> => {
 
   return nodes;
 });
-
 
