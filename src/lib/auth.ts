@@ -6,22 +6,20 @@ export const authPaths = {
   signIn: "/login",
 } as const;
 
-type NextAuthHandler = typeof import("next-auth/next")["default"];
-type AuthOptions = Parameters<NextAuthHandler>[0];
-type DefinedCallbacks = NonNullable<AuthOptions["callbacks"]>;
-type JwtCallbackParams = DefinedCallbacks extends { jwt: (...args: infer A) => unknown }
-  ? A[0]
-  : never;
-type SessionCallbackParams = DefinedCallbacks extends { session: (...args: infer A) => unknown }
-  ? A[0]
-  : never;
+type TokenWithId = { id?: string } & Record<string, unknown>;
+type SessionUserWithId = { id?: string } & Record<string, unknown>;
 
-type SessionToken = SessionCallbackParams extends { token: infer T } ? T & { id?: string } : { id?: string };
-type SessionUser = SessionCallbackParams extends { session: { user: infer U } } ? U & { id?: string } : { id?: string };
+type JwtCallbackArgs = {
+  token: TokenWithId;
+  user?: { id: string } | null;
+};
 
-type AuthCallbacks = NonNullable<AuthOptions["callbacks"]>;
+type SessionCallbackArgs = {
+  session: { user?: SessionUserWithId } & Record<string, unknown>;
+  token: TokenWithId;
+};
 
-const authOptions: AuthOptions = {
+export const authOptions = {
   session: {
     strategy: "jwt",
   },
@@ -66,24 +64,21 @@ const authOptions: AuthOptions = {
     }),
   ],
   callbacks: {
-    async jwt({ token, user }: JwtCallbackParams) {
+    async jwt({ token, user }: JwtCallbackArgs) {
       if (user) {
-        (token as SessionToken).id = (user as { id: string }).id;
+        token.id = user.id;
       }
       return token;
     },
-    async session({ session, token }: SessionCallbackParams) {
-      if (session.user && (token as SessionToken).id) {
-        (session.user as SessionUser).id = (token as SessionToken).id;
+    async session({ session, token }: SessionCallbackArgs) {
+      if (session.user && token.id) {
+        session.user.id = token.id;
       }
       return session;
     },
-  } satisfies Partial<AuthCallbacks>,
+  },
 };
 
-export function getAuthOptions(): AuthOptions {
+export function getAuthOptions() {
   return authOptions;
 }
-
-export { authOptions };
-
