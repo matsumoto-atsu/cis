@@ -1,5 +1,5 @@
-import type { Metadata } from "next";
-import { getServerSession } from "next-auth";
+﻿import type { Metadata } from "next";
+import { getServerSession } from "next-auth/next";
 import { redirect } from "next/navigation";
 import { LoginForm, RegisterForm } from "@/components/LoginForms";
 import { getAuthOptions } from "@/lib/auth";
@@ -41,3 +41,4 @@ export default async function LoginPage() {
     </main>
   );
 }
+
