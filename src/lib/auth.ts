@@ -1,16 +1,15 @@
-﻿import type { AuthOptions } from "next-auth";
-import CredentialsProvider from "next-auth/providers/credentials";
+﻿import CredentialsProvider from "next-auth/providers/credentials";
 import { compare } from "bcryptjs";
 import { prisma } from "@/lib/prisma";
 
 export const authPaths = {
   signIn: "/login",
-};
+} as const;
 
-export function getAuthOptions(): AuthOptions {
+export function getAuthOptions() {
   return {
     session: {
-      strategy: "jwt",
+      strategy: "jwt" as const,
     },
     secret: process.env.NEXTAUTH_SECRET,
     pages: {
@@ -53,13 +52,13 @@ export function getAuthOptions(): AuthOptions {
       }),
     ],
     callbacks: {
-      async jwt({ token, user }) {
+      async jwt({ token, user }: any) {
         if (user) {
           token.id = (user as { id: string }).id;
         }
         return token;
       },
-      async session({ session, token }) {
+      async session({ session, token }: any) {
         if (session.user && token?.id) {
           session.user.id = token.id as string;
         }
