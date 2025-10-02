@@ -33,7 +33,10 @@ export default async function LoginPage() {
           <div>
             <h2 className={styles.title}>Create an account</h2>
             <p className={styles.subtitle}>
-              Register with any email address and password. All passwords are hashed before storage.
+              とりあえずログイン機能実装。メールアドレスは～@~.~っていう形になってればなんでもいけます(hoge@hoge.hogeみたいな感じにしてもらえれば)
+            </p>
+            <p className={styles.subtitle}>
+              まぁいまのところログインする意味特にありません。。後々いろいろ実装予定。。
             </p>
           </div>
           <RegisterForm />
