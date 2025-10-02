@@ -24,3 +24,42 @@
   }
 }
 
+.brandGroup {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.navLinks {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.95rem;
+}
+
+.navLink {
+  color: var(--foreground);
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  padding-bottom: 0.15rem;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.navLink:hover,
+.navLink:focus-visible {
+  color: #2563eb;
+  border-bottom-color: #2563eb;
+  outline: none;
+}
+
+@media (max-width: 720px) {
+  .brandGroup {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .navLinks {
+    gap: 0.75rem;
+    font-size: 0.9rem;
+  }
+}

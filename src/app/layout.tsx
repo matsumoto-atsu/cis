@@ -33,9 +33,16 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <SessionProvider>
           <header className={styles.siteHeader}>
-            <Link href="/" className={styles.brand}>
-              {siteName}
-            </Link>
+            <div className={styles.brandGroup}>
+              <Link href="/" className={styles.brand}>
+                {siteName}
+              </Link>
+              <nav className={styles.navLinks} aria-label="主要ナビゲーション">
+                <Link href="/study" className={styles.navLink}>
+                  テキスト
+                </Link>
+              </nav>
+            </div>
             <AuthStatus />
           </header>
           {children}

@@ -1,4 +1,4 @@
-# CIS practice site
+﻿# CIS practice site
 
 Next.js app for CIS exam practice. Users can sign in with an email address and password, laying the groundwork for storing personal accuracy stats later. Quizzes remain accessible without signing in.
 
@@ -39,3 +39,13 @@ On Vercel, add these environment variables:
 - `DATABASE_URL` (persistent database connection string)
 
 Run `npx prisma migrate deploy` as part of your deployment workflow to apply schema changes to the production database.
+
+## Study explorer
+
+- `/study` provides hierarchical navigation of medical text images stored under `public/data/pdfs_images`.
+- Departments, chapters, and sections load on demand; URLs reflect the currently open items.
+- Use the search bar to jump directly to any node; the API filters locally generated metadata.
+- You can bookmark sections (stored in local storage and scoped per user when signed in).
+- Content metadata overrides live in `src/data/contentConfig.ts`; update this file to adjust names, order, or status badges for each department/chapter/section.
+
+

@@ -1,0 +1,193 @@
+Purpose
+
+Provide a structured site to study medical texts, organized into three levels: Department → Chapter → Section.
+
+Allow users to quickly navigate from high-level lists to detailed section content (image-based text pages).
+
+Keep the site responsive by only loading what is necessary when needed.
+
+Scope
+
+Hierarchical navigation (Department → Chapter → Section)
+
+Section content display (images of text pages)
+
+Bookmarks / favorites
+
+Lightweight search (by Department, Chapter, Section name)
+
+Minimal metadata display (last updated, source/reference)
+
+Main Use Cases
+
+User opens the list of Departments.
+
+User clicks a Department → an accordion expands with its Chapters.
+
+User clicks a Chapter → its Sections expand.
+
+User clicks a Section → the section’s content (image) is displayed.
+
+User can bookmark sections for later access.
+
+User can use search to filter Departments/Chapters/Sections by name.
+
+Content Model
+
+Department
+
+Name, order, optional description, updated date
+
+Chapter
+
+Parent department, name (e.g., “Chapter 1”), optional summary, order, updated date
+
+Section
+
+Parent chapter, name (e.g., “1-1 Glomerular Disease”), optional summary, order, reference to one or more images, updated date, source (optional)
+
+Bookmark
+
+Collection of Section IDs per user
+
+Review Info (optional)
+
+Labels or notes (e.g., “Reviewed”, “Draft”) attached to Departments or Chapters
+
+Navigation Behavior
+
+Initial screen: list of Departments.
+
+Accordion expansion:
+
+Clicking a Department expands its Chapters.
+
+Clicking a Chapter expands its Sections.
+
+Only one accordion open at a time at each level (default).
+
+Breadcrumbs: Top > Department > Chapter (active).
+
+URLs reflect the open state for sharing/bookmarking:
+
+/department
+
+/department/chapter
+
+/department/chapter/section
+
+Loading & Performance Strategy
+
+Load content progressively:
+
+On page load: only Department metadata.
+
+On opening a Department: fetch Chapters for that Department.
+
+On opening a Chapter: fetch Sections for that Chapter.
+
+On opening a Section: fetch section content (images).
+
+Cache loaded data for short-term reuse.
+
+Lazy-load images only when the Section is opened or near the viewport.
+
+Long lists should be broken into chunks (“load more”) to reduce scroll burden.
+
+If loading fails, retry at the Department/Chapter/Section level independently.
+
+UI Elements & States
+
+Top bar: search field, bookmark button
+
+Accordion items: normal, expanded, loading, error, bookmarked
+
+Section viewer:
+
+Image viewer with zoom, swipe (for multi-page), page number, loading indicator
+
+Retry option if image fails to load
+
+Search
+
+Filters locally across Department/Chapter/Section names.
+
+Results allow direct navigation to the corresponding item.
+
+Section content itself (images) is not searchable.
+
+Bookmarks
+
+Bookmark/Unbookmark sections individually.
+
+Dedicated bookmark view showing saved sections with parent info.
+
+Offline storage when not logged in, synced to account if logged in.
+
+Accessibility & Usability
+
+Full keyboard navigation for expanding/collapsing and opening items.
+
+Screen reader support with clear hierarchy labeling.
+
+Images have simple alt text (e.g., “Section 1-1 Glomerular Disease, page 1”).
+
+Loading/error states always visible and textual.
+
+Non-Functional Requirements
+
+Initial load must be lightweight (Departments only).
+
+List expansion should respond within ~1 second.
+
+Section image loading should show progressive feedback.
+
+Mobile-first layout with large tap targets.
+
+Data loads are on-demand only (no unnecessary preloading).
+
+Independent recovery: one failed section load does not break the whole page.
+
+Content Management
+
+Content structured as Department → Chapter → Section.
+
+Updates happen at Section level (image replacements/additions).
+
+Each Section has persistent IDs for future redirects (if merged/renamed).
+
+Metadata includes last updated date and optional reviewer name.
+
+Quality & Consistency
+
+Naming conventions defined (e.g., number + hyphen format, consistent full/half-width use).
+
+Badges for status: “Reviewed”, “In Revision”, “Archived”.
+
+References or sources displayed at Section bottom.
+
+Error Handling
+
+Network issue: show retry on the affected item.
+
+Access restriction (future feature): lock icon with reason.
+
+Data issue: show “Coming Soon” instead of breaking the page.
+
+Analytics (Optional)
+
+Track navigation funnel (Department → Chapter → Section).
+
+Track completion of Section views.
+
+Track search terms and bookmark usage.
+
+Highlight popular Sections to users.
+
+👉 The key design points:
+
+Progressive loading (never fetch all at once)
+
+Accordion-based navigation with URL support for deep links
+
+Independent retry per item to avoid full reload
