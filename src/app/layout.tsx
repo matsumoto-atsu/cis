@@ -38,8 +38,9 @@ export default function RootLayout({
                 {siteName}
               </Link>
               <nav className={styles.navLinks} aria-label="主要ナビゲーション">
-                <Link href="/study" className={styles.navLink}>
-                  medu4テキスト(著作権的に大丈夫なんだろうか。。。)
+                <Link href="/study" className={styles.navButton}>
+                  <span className={styles.navButtonLabel}>medu4テキスト</span>
+                  <span className={styles.navButtonHint}>β版</span>
                 </Link>
               </nav>
             </div>
