@@ -155,13 +155,40 @@
   margin-top: 0.75rem;
 }
 
-.departmentButton,
-.chapterButton,
-.sectionButton {
+.departmentButton{
   width: 100%;
   text-align: left;
   border: none;
-  background: #6e9bc7;
+  background: #022547;
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+.chapterButton{
+  width: 100%;
+  text-align: left;
+  border: none;
+  background: #03386d;
+  padding: 0.75rem 1rem;
+  margin-bottom:0.5rem;
+  border-radius: 0.75rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+.sectionButton{
+  width: 100%;
+  text-align: left;
+  border: none;
+  background: #04498f;
   padding: 0.75rem 1rem;
   border-radius: 0.75rem;
   display: flex;
