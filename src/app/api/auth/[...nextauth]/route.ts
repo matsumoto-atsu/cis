@@ -1,15 +1,10 @@
-﻿import type { NextRequest } from "next/server";
-import NextAuth from "next-auth/next";
+﻿import NextAuth from "next-auth/next";
 import { getAuthOptions } from "@/lib/auth";
 
-type NextAuthHandler = typeof NextAuth;
+const authOptions = getAuthOptions();
 
-type RouteHandler = (
-  req: NextRequest,
-  ctx: { params: Promise<{ nextauth: string[] }> }
-) => ReturnType<NextAuthHandler>;
+const handler = (NextAuth as unknown as (options: typeof authOptions) => ReturnType<typeof NextAuth>)(
+  authOptions,
+);
 
-const handler = NextAuth(getAuthOptions());
-
-export const GET: RouteHandler = handler;
-export const POST: RouteHandler = handler;
+export { handler as GET, handler as POST };
