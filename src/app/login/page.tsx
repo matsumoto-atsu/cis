@@ -1,8 +1,9 @@
 ﻿import type { Metadata } from "next";
 import { getServerSession } from "next-auth/next";
+import type { GetServerSessionOptions } from "next-auth/next";
 import { redirect } from "next/navigation";
 import { LoginForm, RegisterForm } from "@/components/LoginForms";
-import { getAuthOptions } from "@/lib/auth";
+import { authOptions } from "@/lib/auth";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
@@ -10,7 +11,7 @@ export const metadata: Metadata = {
 };
 
 export default async function LoginPage() {
-  const session = await getServerSession(getAuthOptions());
+  const session = await getServerSession(authOptions as GetServerSessionOptions);
   if (session) {
     redirect("/");
   }
@@ -41,4 +42,5 @@ export default async function LoginPage() {
     </main>
   );
 }
+
 

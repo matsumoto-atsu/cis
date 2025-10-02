@@ -84,3 +84,6 @@ const authOptions: AuthOptions = {
 export function getAuthOptions(): AuthOptions {
   return authOptions;
 }
+
+export { authOptions };
+
