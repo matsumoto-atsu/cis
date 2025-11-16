@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 };
 
 export default async function LoginPage() {
-  // @ts-expect-error -- NextAuth App Router types do not expose a 1-arg overload
+  
   const session = await getServerSession(authOptions);
   if (session) {
     redirect("/");
