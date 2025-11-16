@@ -1,5 +1,5 @@
 ﻿import { NextRequest, NextResponse } from "next/server";
-import { getServerSession } from "next-auth";
+import { getServerSession } from "next-auth/next";
 import { prisma } from "@/lib/prisma";
 import { authOptions } from "@/lib/auth";
 import { questionKey } from "@/lib/question-key";
@@ -21,6 +21,18 @@ type ParsedParams = {
   block: number;
   number: number;
 };
+
+type SessionLike = {
+  user?: {
+    id?: string | null;
+    name?: string | null;
+    email?: string | null;
+  } | null;
+} & Record<string, unknown>;
+
+function getSessionUserId(session: unknown): string | null {
+  return (session as SessionLike | null)?.user?.id ?? null;
+}
 
 async function parseParams(paramsInput: RouteContext["params"]): Promise<ParsedParams | null> {
   const params = await Promise.resolve(paramsInput);
@@ -67,7 +79,7 @@ export async function GET(_request: NextRequest, context: RouteContext) {
   }
 
   const session = await getServerSession(authOptions);
-  const viewerId = session?.user?.id ?? null;
+  const viewerId = getSessionUserId(session);
   const key = questionKey(parsed.year, parsed.block, parsed.number);
   const records = await prisma.questionComment.findMany({
     where: { questionKey: key },
@@ -86,7 +98,8 @@ export async function POST(request: NextRequest, context: RouteContext) {
   }
 
   const session = await getServerSession(authOptions);
-  if (!session?.user?.id) {
+  const userId = getSessionUserId(session);
+  if (!userId) {
     return NextResponse.json({ error: "ログインが必要です" }, { status: 401 });
   }
 
@@ -109,12 +122,12 @@ export async function POST(request: NextRequest, context: RouteContext) {
     data: {
       questionKey: key,
       body,
-      userId: session.user.id,
+      userId,
     },
     include: { user: true },
   });
 
-  return NextResponse.json({ comment: formatComment(created, session.user.id) }, { status: 201 });
+  return NextResponse.json({ comment: formatComment(created, userId) }, { status: 201 });
 }
 
 export async function DELETE(request: NextRequest, context: RouteContext) {
@@ -124,7 +137,8 @@ export async function DELETE(request: NextRequest, context: RouteContext) {
   }
 
   const session = await getServerSession(authOptions);
-  if (!session?.user?.id) {
+  const userId = getSessionUserId(session);
+  if (!userId) {
     return NextResponse.json({ error: "ログインが必要です" }, { status: 401 });
   }
 
@@ -139,7 +153,7 @@ export async function DELETE(request: NextRequest, context: RouteContext) {
     where: {
       id,
       questionKey: key,
-      userId: session.user.id,
+      userId,
     },
   });
 
@@ -149,4 +163,3 @@ export async function DELETE(request: NextRequest, context: RouteContext) {
 
   return NextResponse.json({ success: true });
 }
-
