@@ -1,7 +1,6 @@
-import CredentialsProvider from "next-auth/providers/credentials";
+﻿import CredentialsProvider from "next-auth/providers/credentials";
 import { compare } from "bcryptjs";
 import { prisma } from "@/lib/prisma";
-import type { AuthOptions } from "next-auth/core/types";
 
 export const authPaths = {
   signIn: "/login",
@@ -20,9 +19,9 @@ type SessionCallbackArgs = {
   token: TokenWithId;
 };
 
-export const authOptions: AuthOptions = {
+export const authOptions = {
   session: {
-    strategy: "jwt",
+    strategy: "jwt" as const,
   },
   secret: process.env.NEXTAUTH_SECRET,
   pages: {
