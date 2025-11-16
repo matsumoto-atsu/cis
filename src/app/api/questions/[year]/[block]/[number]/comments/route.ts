@@ -78,7 +78,7 @@ export async function GET(_request: NextRequest, context: RouteContext) {
     return NextResponse.json({ error: "Invalid question parameters" }, { status: 400 });
   }
 
-  const session = await getServerSession(authOptions);
+  const session = await getServerSession(authOptions as never);
   const viewerId = getSessionUserId(session);
   const key = questionKey(parsed.year, parsed.block, parsed.number);
   const records = await prisma.questionComment.findMany({
@@ -97,7 +97,7 @@ export async function POST(request: NextRequest, context: RouteContext) {
     return NextResponse.json({ error: "Invalid question parameters" }, { status: 400 });
   }
 
-  const session = await getServerSession(authOptions);
+  const session = await getServerSession(authOptions as never);
   const userId = getSessionUserId(session);
   if (!userId) {
     return NextResponse.json({ error: "ログインが必要です" }, { status: 401 });
@@ -136,7 +136,7 @@ export async function DELETE(request: NextRequest, context: RouteContext) {
     return NextResponse.json({ error: "Invalid question parameters" }, { status: 400 });
   }
 
-  const session = await getServerSession(authOptions);
+  const session = await getServerSession(authOptions as never);
   const userId = getSessionUserId(session);
   if (!userId) {
     return NextResponse.json({ error: "ログインが必要です" }, { status: 401 });
