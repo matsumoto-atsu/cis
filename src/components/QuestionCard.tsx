@@ -5,6 +5,7 @@ import type { Question } from "@/lib/types";
 import { qKey, setUserAnswer, getUserAnswers } from "@/lib/storage";
 import clsx from "clsx";
 import styles from "./QuestionCard.module.css";
+import QuestionComments from "./QuestionComments";
 
 type Props = {
   q: Question;
@@ -198,7 +199,7 @@ export default function QuestionCard({ q, year, block, onAnswered, onNext, canAd
         >
           <div className={styles.statusTitle}>{correct ? "正解です" : "不正解です"}</div>
 
-          {q.explanation && <p>{q.explanation}</p>}
+          <QuestionComments year={year} block={block} number={q.number} />
 
           <div className={styles.statusMeta}>答え: {q.answer.join(", ")}</div>
 

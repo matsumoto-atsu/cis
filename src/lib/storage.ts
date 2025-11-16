@@ -1,41 +1,43 @@
+import { questionKey } from "./question-key";
+
 // ローカル保存（年/ブロックごとにユーザー解答を保持）
 export type UserAnswerMap = Record<string, number[]>; // key: qKey("2023-1-1"), value: [2] など
 
-const KEY = "cis-answers-v1";
+const ANSWER_KEY = "cis-answers-v1";
 
-function loadAll(): UserAnswerMap {
+function loadAllAnswers(): UserAnswerMap {
   if (typeof window === "undefined") return {};
   try {
-    const raw = localStorage.getItem(KEY);
+    const raw = localStorage.getItem(ANSWER_KEY);
     return raw ? (JSON.parse(raw) as UserAnswerMap) : {};
   } catch {
     return {};
   }
 }
 
-function saveAll(map: UserAnswerMap) {
+function saveAllAnswers(map: UserAnswerMap) {
   if (typeof window === "undefined") return;
-  localStorage.setItem(KEY, JSON.stringify(map));
+  localStorage.setItem(ANSWER_KEY, JSON.stringify(map));
 }
 
 export function qKey(year: number, block: number, number: number) {
-  return `${year}-${block}-${number}`;
+  return questionKey(year, block, number);
 }
 
 export function getUserAnswers(): UserAnswerMap {
-  return loadAll();
+  return loadAllAnswers();
 }
 
 export function setUserAnswer(key: string, val: number[]) {
-  const all = loadAll();
+  const all = loadAllAnswers();
   all[key] = val;
-  saveAll(all);
+  saveAllAnswers(all);
 }
 
 export function clearUserAnswers(keys: string[]) {
   if (typeof window === "undefined" || keys.length === 0) return;
 
-  const all = loadAll();
+  const all = loadAllAnswers();
   let changed = false;
 
   for (const key of keys) {
@@ -45,5 +47,5 @@ export function clearUserAnswers(keys: string[]) {
     }
   }
 
-  if (changed) saveAll(all);
+  if (changed) saveAllAnswers(all);
 }
