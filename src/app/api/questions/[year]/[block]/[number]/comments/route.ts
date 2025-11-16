@@ -1,4 +1,4 @@
-﻿import { NextResponse } from "next/server";
+﻿import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth/next";
 import { prisma } from "@/lib/prisma";
 import { authOptions } from "@/lib/auth";
@@ -6,12 +6,14 @@ import { questionKey } from "@/lib/question-key";
 
 const MAX_COMMENT_LENGTH = 1000;
 
+type RouteParams = {
+  year?: string;
+  block?: string;
+  number?: string;
+};
+
 type RouteContext = {
-  params: {
-    year?: string;
-    block?: string;
-    number?: string;
-  };
+  params: RouteParams | Promise<RouteParams>;
 };
 
 type ParsedParams = {
@@ -20,7 +22,8 @@ type ParsedParams = {
   number: number;
 };
 
-function parseParams(params: RouteContext["params"]): ParsedParams | null {
+async function parseParams(paramsInput: RouteContext["params"]): Promise<ParsedParams | null> {
+  const params = await Promise.resolve(paramsInput);
   const year = Number(params.year);
   const block = Number(params.block);
   const number = Number(params.number);
@@ -57,8 +60,8 @@ function formatComment(
   };
 }
 
-export async function GET(_request: Request, context: RouteContext) {
-  const parsed = parseParams(context.params);
+export async function GET(_request: NextRequest, context: RouteContext) {
+  const parsed = await parseParams(context.params);
   if (!parsed) {
     return NextResponse.json({ error: "Invalid question parameters" }, { status: 400 });
   }
@@ -76,8 +79,8 @@ export async function GET(_request: Request, context: RouteContext) {
   return NextResponse.json({ comments: records.map(record => formatComment(record, viewerId)) });
 }
 
-export async function POST(request: Request, context: RouteContext) {
-  const parsed = parseParams(context.params);
+export async function POST(request: NextRequest, context: RouteContext) {
+  const parsed = await parseParams(context.params);
   if (!parsed) {
     return NextResponse.json({ error: "Invalid question parameters" }, { status: 400 });
   }
@@ -114,8 +117,8 @@ export async function POST(request: Request, context: RouteContext) {
   return NextResponse.json({ comment: formatComment(created, session.user.id) }, { status: 201 });
 }
 
-export async function DELETE(request: Request, context: RouteContext) {
-  const parsed = parseParams(context.params);
+export async function DELETE(request: NextRequest, context: RouteContext) {
+  const parsed = await parseParams(context.params);
   if (!parsed) {
     return NextResponse.json({ error: "Invalid question parameters" }, { status: 400 });
   }
