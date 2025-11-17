@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import type { Question } from "@/lib/types";
@@ -27,6 +27,7 @@ export default function QuizClient({ year, block }: { year: number; block: numbe
   const [readyForNext, setReadyForNext] = useState(false);
   const [startAtNumber, setStartAtNumber] = useState<number | null>(null);
   const [startInput, setStartInput] = useState("");
+  const [results, setResults] = useState<Record<number, boolean>>({});
 
   useEffect(() => {
     const controller = new AbortController();
@@ -40,6 +41,7 @@ export default function QuizClient({ year, block }: { year: number; block: numbe
     setReadyForNext(false);
     setStartAtNumber(null);
     setStartInput("");
+    setResults({});
 
     async function load() {
       try {
@@ -72,6 +74,7 @@ export default function QuizClient({ year, block }: { year: number; block: numbe
       setIdx(0);
       setReadyForNext(false);
       setStartAtNumber(null);
+      setResults({});
       return;
     }
 
@@ -103,6 +106,13 @@ export default function QuizClient({ year, block }: { year: number; block: numbe
   }, [startInput]);
   const canStartFromNumber = parsedStartInput !== null && orderedNumbers.has(parsedStartInput);
 
+  const answeredCount = useMemo(() => Object.keys(results).length, [results]);
+  const correctCount = useMemo(
+    () => Object.values(results).filter(Boolean).length,
+    [results]
+  );
+  const accuracy = answeredCount ? Math.round((correctCount / answeredCount) * 100) : null;
+
   const randomDisabled = ordered.length < 2;
   const showPicker = !orderMode && !loading && !error && ordered.length > 0;
   const showEmpty = !loading && !error && ordered.length === 0;
@@ -115,6 +125,7 @@ export default function QuizClient({ year, block }: { year: number; block: numbe
     }
 
     setStartAtNumber(null);
+    setResults({});
     setOrderMode(mode);
     setReadyForNext(false);
   }
@@ -127,6 +138,7 @@ export default function QuizClient({ year, block }: { year: number; block: numbe
     }
 
     setStartAtNumber(parsedStartInput);
+    setResults({});
     setOrderMode("sequential");
     setReadyForNext(false);
   }
@@ -139,7 +151,10 @@ export default function QuizClient({ year, block }: { year: number; block: numbe
     setStartAtNumber(null);
   }
 
-  function handleAnswered() {
+  function handleAnswered(correct: boolean) {
+    if (q) {
+      setResults(prev => ({ ...prev, [q.number]: correct }));
+    }
     setReadyForNext(true);
   }
 
@@ -250,6 +265,7 @@ export default function QuizClient({ year, block }: { year: number; block: numbe
             onAnswered={handleAnswered}
             onNext={hasNext ? goNext : undefined}
             canAdvance={hasNext}
+            stats={{ accuracy, answeredCount, correctCount, total: ordered.length }}
           />
           {showCompletion && (
             <div className={styles.completionNotice}>
@@ -262,5 +278,3 @@ export default function QuizClient({ year, block }: { year: number; block: numbe
     </main>
   );
 }
-
-

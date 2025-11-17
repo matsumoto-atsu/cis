@@ -14,6 +14,7 @@ type Props = {
   onAnswered?: (correct: boolean) => void;
   onNext?: () => void;
   canAdvance?: boolean;
+  stats?: { accuracy: number | null; answeredCount: number; correctCount: number; total: number };
 };
 
 function eqSet(a: number[], b: number[]) {
@@ -22,7 +23,7 @@ function eqSet(a: number[], b: number[]) {
   return A === B;
 }
 
-export default function QuestionCard({ q, year, block, onAnswered, onNext, canAdvance }: Props) {
+export default function QuestionCard({ q, year, block, onAnswered, onNext, canAdvance, stats }: Props) {
   const key = qKey(year, block, q.number);
   const [picks, setPicks] = useState<number[]>([]);
   const [graded, setGraded] = useState(false);
@@ -198,6 +199,16 @@ export default function QuestionCard({ q, year, block, onAnswered, onNext, canAd
           )}
         >
           <div className={styles.statusTitle}>{correct ? "正解です" : "不正解です"}</div>
+
+          {stats && stats.answeredCount > 0 && (
+            <div className={styles.statsBar}>
+              <span>
+                正答率: {stats.accuracy !== null ? `${stats.accuracy}%` : "-"}
+                （{stats.correctCount} / {stats.answeredCount}）
+              </span>
+              <span>回答数: {stats.answeredCount} / {stats.total} 問</span>
+            </div>
+          )}
 
           <QuestionComments year={year} block={block} number={q.number} />
 

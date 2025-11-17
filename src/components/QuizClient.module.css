@@ -1,205 +1,206 @@
-.wrapper {
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 3.5rem 1.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-.topBar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-
-.headingGroup {
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
-}
-
-.title {
-  font-size: clamp(1.6rem, 3vw, 2rem);
-  font-weight: 700;
-  color: var(--foreground);
-}
-
-.progress {
-  font-size: 0.95rem;
-  color: var(--muted);
-}
-
-.controls {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-}
-
-.orderSummary {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.75rem;
-  font-size: 0.95rem;
-  color: var(--muted);
-}
-
-.orderReset {
-  padding: 0.4rem 0.9rem;
-  font-size: 0.9rem;
-}
-
-.orderPicker {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  padding: 2rem;
-  border-radius: 1.25rem;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  box-shadow: var(--shadow);
-}
-
-.orderPicker h2 {
-  font-size: 1.3rem;
-  font-weight: 600;
-  color: var(--foreground);
-}
-
-.orderPicker p {
-  margin: 0;
-  color: var(--muted);
-  line-height: 1.6;
-}
-
-.orderChoiceGroup {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-}
-
-.orderButton {
-  min-width: 11rem;
-  text-align: center;
-}
-
-.orderButton:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-  transform: none;
-  box-shadow: none;
-}
-
-.orderNote {
-  font-size: 0.9rem;
-  color: var(--muted);
-}
-
-
-.startFromForm {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-.startLabel {
-  font-size: 0.95rem;
-  color: var(--muted);
-}
-
-.startInput {
-  width: 7rem;
-  padding: 0.45rem 0.6rem;
-  border-radius: 0.55rem;
-  border: 1px solid var(--border);
-  background: var(--base);
-  color: var(--foreground);
-}
-
-.emptyState {
-  margin-top: 2rem;
-  padding: 2.5rem;
-  border-radius: 1.25rem;
-  text-align: center;
-  background: rgba(255, 255, 255, 0.4);
-  border: 1px dashed rgba(148, 163, 184, 0.6);
-  color: var(--muted);
-}
-
-.completionNotice {
-  margin-top: 2rem;
-  padding: 1.75rem;
-  border-radius: 1.1rem;
-  text-align: center;
-  background: rgba(99, 102, 241, 0.12);
-  border: 1px solid rgba(99, 102, 241, 0.25);
-  color: var(--foreground);
-  line-height: 1.6;
-}
-
-@media (prefers-color-scheme: dark) {
-  .emptyState {
-    background: rgba(15, 23, 42, 0.65);
-    border-color: rgba(99, 102, 241, 0.4);
-  }
-
-  .orderPicker {
-    background: var(--surface);
-    border-color: var(--border);
-    box-shadow: var(--shadow);
-  }
-
-  .orderNote {
-    color: rgba(148, 163, 184, 0.85);
-  }
-
-  .completionNotice {
-    background: rgba(79, 70, 229, 0.22);
-    border-color: rgba(99, 102, 241, 0.45);
-    color: #e0e7ff;
-  }
-}
-
-@media (max-width: 640px) {
-  .wrapper {
-    padding: 3rem 1rem 2.5rem;
-  }
-
-  .topBar {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .controls {
-    width: 100%;
-    justify-content: space-between;
-    align-items: flex-start;
-  }
-
-  .orderSummary {
-    width: 100%;
-    justify-content: space-between;
-  }
-
-  .orderChoiceGroup {
-    flex-direction: column;
-  }
-
-  .startFromForm {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .startInput {
-    width: 100%;
-  }
-
-  .orderButton {
-    width: 100%;
-  }
-}
+.wrapper {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 3.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.topBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.headingGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.title {
+  font-size: clamp(1.6rem, 3vw, 2rem);
+  font-weight: 700;
+  color: var(--foreground);
+}
+
+.progress {
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.orderSummary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+
+.orderReset {
+  padding: 0.4rem 0.9rem;
+  font-size: 0.9rem;
+}
+
+.orderPicker {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 2rem;
+  border-radius: 1.25rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+}
+
+.orderPicker h2 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+.orderPicker p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.orderChoiceGroup {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.orderButton {
+  min-width: 11rem;
+  text-align: center;
+}
+
+.orderButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.orderNote {
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+
+
+.startFromForm {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.startLabel {
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+
+.startInput {
+  width: 7rem;
+  padding: 0.45rem 0.6rem;
+  border-radius: 0.55rem;
+  border: 1px solid var(--border);
+  background: var(--base);
+  color: var(--foreground);
+}
+
+.emptyState {
+  margin-top: 2rem;
+  padding: 2.5rem;
+  border-radius: 1.25rem;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.4);
+  border: 1px dashed rgba(148, 163, 184, 0.6);
+  color: var(--muted);
+}
+
+.completionNotice {
+  margin-top: 2rem;
+  padding: 1.75rem;
+  border-radius: 1.1rem;
+  text-align: center;
+  background: rgba(99, 102, 241, 0.12);
+  border: 1px solid rgba(99, 102, 241, 0.25);
+  color: var(--foreground);
+  line-height: 1.6;
+}
+
+@media (prefers-color-scheme: dark) {
+  .emptyState {
+    background: rgba(15, 23, 42, 0.65);
+    border-color: rgba(99, 102, 241, 0.4);
+  }
+
+  .orderPicker {
+    background: var(--surface);
+    border-color: var(--border);
+    box-shadow: var(--shadow);
+  }
+
+  .orderNote {
+    color: rgba(148, 163, 184, 0.85);
+  }
+
+  .completionNotice {
+    background: rgba(79, 70, 229, 0.22);
+    border-color: rgba(99, 102, 241, 0.45);
+    color: #e0e7ff;
+  }
+}
+
+@media (max-width: 640px) {
+  .wrapper {
+    padding: 3rem 1rem 2.5rem;
+  }
+
+  .topBar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .controls {
+    width: 100%;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .orderSummary {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .orderChoiceGroup {
+    flex-direction: column;
+  }
+
+  .startFromForm {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .startInput {
+    width: 100%;
+  }
+
+  .orderButton {
+    width: 100%;
+  }
+}
