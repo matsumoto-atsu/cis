@@ -204,3 +204,60 @@
     width: 100%;
   }
 }
+.bookmarkSection {
+  margin-top: 1rem;
+  padding: 1.25rem 1rem;
+  border-radius: 1rem;
+  border: 1px dashed var(--border);
+  background: rgba(226, 232, 240, 0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.bookmarkHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.bookmarkBadge {
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  font-size: 0.9rem;
+  color: var(--foreground);
+}
+
+.bookmarkButtons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.questionToolbar {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.bookmarkToggle {
+  font-weight: 600;
+}
+
+@media (prefers-color-scheme: dark) {
+  .bookmarkSection {
+    background: rgba(51, 65, 85, 0.35);
+  }
+}
+
+@media (max-width: 640px) {
+  .bookmarkButtons {
+    flex-direction: column;
+  }
+
+  .bookmarkToggle {
+    width: 100%;
+  }
+}

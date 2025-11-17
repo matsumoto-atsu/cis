@@ -17,6 +17,7 @@ model User {
   updatedAt    DateTime          @updatedAt
 
   comments     QuestionComment[]
+  bookmarks    QuestionBookmark[]
 }
 
 model QuestionComment {
@@ -31,3 +32,20 @@ model QuestionComment {
   @@index([questionKey])
   @@index([userId])
 }
+
+model QuestionBookmark {
+  id          String   @id @default(cuid())
+  userId      String
+  questionKey String
+  year        Int
+  block       Int
+  number      Int
+  createdAt   DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, questionKey])
+  @@index([userId])
+  @@index([questionKey])
+}
+
