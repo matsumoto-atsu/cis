@@ -25,6 +25,8 @@ export default function QuizClient({ year, block }: { year: number; block: numbe
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [readyForNext, setReadyForNext] = useState(false);
+  const [startAtNumber, setStartAtNumber] = useState<number | null>(null);
+  const [startInput, setStartInput] = useState("");
 
   useEffect(() => {
     const controller = new AbortController();
@@ -36,6 +38,8 @@ export default function QuizClient({ year, block }: { year: number; block: numbe
     setLoading(true);
     setError(null);
     setReadyForNext(false);
+    setStartAtNumber(null);
+    setStartInput("");
 
     async function load() {
       try {
@@ -67,20 +71,37 @@ export default function QuizClient({ year, block }: { year: number; block: numbe
       setAll([]);
       setIdx(0);
       setReadyForNext(false);
+      setStartAtNumber(null);
       return;
     }
 
     const nextAll = orderMode === "sequential" ? ordered : shuffle(ordered);
     setAll(nextAll);
-    setIdx(0);
+    if (orderMode === "sequential" && startAtNumber !== null) {
+      const startIdx = nextAll.findIndex(qItem => qItem.number === startAtNumber);
+      setIdx(startIdx >= 0 ? startIdx : 0);
+    } else {
+      setIdx(0);
+    }
     setReadyForNext(false);
-  }, [ordered, orderMode]);
+  }, [ordered, orderMode, startAtNumber]);
 
   const q = all[idx];
   const total = all.length;
   const hasNext = idx < total - 1;
   const hasQuestions = total > 0;
   const progress = useMemo(() => (total ? `${idx + 1} / ${total}` : ""), [idx, total]);
+
+  const orderedNumbers = useMemo(() => new Set(ordered.map(qItem => qItem.number)), [ordered]);
+  const lastNumber = ordered.at(-1)?.number ?? 0;
+  const firstNumber = ordered[0]?.number ?? 0;
+  const parsedStartInput = useMemo(() => {
+    const trimmed = startInput.trim();
+    if (!trimmed) return null;
+    const n = Number(trimmed);
+    return Number.isInteger(n) ? n : null;
+  }, [startInput]);
+  const canStartFromNumber = parsedStartInput !== null && orderedNumbers.has(parsedStartInput);
 
   const randomDisabled = ordered.length < 2;
   const showPicker = !orderMode && !loading && !error && ordered.length > 0;
@@ -93,7 +114,20 @@ export default function QuizClient({ year, block }: { year: number; block: numbe
       clearUserAnswers(keys);
     }
 
+    setStartAtNumber(null);
     setOrderMode(mode);
+    setReadyForNext(false);
+  }
+
+  function startFromNumber() {
+    if (!canStartFromNumber || parsedStartInput === null) return;
+    if (ordered.length) {
+      const keys = ordered.map(qItem => qKey(year, block, qItem.number));
+      clearUserAnswers(keys);
+    }
+
+    setStartAtNumber(parsedStartInput);
+    setOrderMode("sequential");
     setReadyForNext(false);
   }
 
@@ -102,6 +136,7 @@ export default function QuizClient({ year, block }: { year: number; block: numbe
     setAll([]);
     setIdx(0);
     setReadyForNext(false);
+    setStartAtNumber(null);
   }
 
   function handleAnswered() {
@@ -172,6 +207,33 @@ export default function QuizClient({ year, block }: { year: number; block: numbe
               ランダムで始める
             </button>
           </div>
+          <div className={styles.startFromForm}>
+            <label className={styles.startLabel} htmlFor="start-number">
+              番号を指定して開始
+            </label>
+            <input
+              id="start-number"
+              type="number"
+              min={firstNumber || 1}
+              max={lastNumber || undefined}
+              value={startInput}
+              onChange={e => setStartInput(e.target.value)}
+              className={styles.startInput}
+              placeholder="例: 5"
+            />
+            <button
+              type="button"
+              onClick={startFromNumber}
+              className={`button-base button-secondary ${styles.orderButton}`}
+              disabled={!canStartFromNumber}
+            >
+              番号を指定して始める
+            </button>
+          </div>
+          <p className={styles.orderNote}>開始可能な番号: {firstNumber} 〜 {lastNumber}</p>
+          {startInput.trim() && !canStartFromNumber && (
+            <p className={styles.orderNote}>入力された番号の問題は見つかりません。</p>
+          )}
           {randomDisabled && (
             <p className={styles.orderNote}>このブロックには1問しかありません。</p>
           )}

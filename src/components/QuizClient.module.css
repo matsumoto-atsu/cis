@@ -99,6 +99,28 @@
   color: var(--muted);
 }
 
+
+.startFromForm {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.startLabel {
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+
+.startInput {
+  width: 7rem;
+  padding: 0.45rem 0.6rem;
+  border-radius: 0.55rem;
+  border: 1px solid var(--border);
+  background: var(--base);
+  color: var(--foreground);
+}
+
 .emptyState {
   margin-top: 2rem;
   padding: 2.5rem;
@@ -166,6 +188,15 @@
 
   .orderChoiceGroup {
     flex-direction: column;
+  }
+
+  .startFromForm {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .startInput {
+    width: 100%;
   }
 
   .orderButton {
