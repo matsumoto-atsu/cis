@@ -66,6 +66,14 @@ export default function QuestionCard({ q, year, block, onAnswered, onNext, canAd
   const groupName = `q-${key}`;
 
   function handleKey(e: React.KeyboardEvent<HTMLDivElement>) {
+    const target = e.target as HTMLElement | null;
+    if (
+      target &&
+      (target.tagName === "INPUT" || target.tagName === "TEXTAREA" || target.isContentEditable)
+    ) {
+      return; // don't trigger shortcuts while typing in form fields (e.g., comments)
+    }
+
     const n = Number(e.key);
     if (n >= 1 && n <= q.choices.length) {
       e.preventDefault();
