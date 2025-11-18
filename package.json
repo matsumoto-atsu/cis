@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "npm run generate:content && next dev --turbopack",
-    "build": "npm run generate:content && prisma migrate deploy && next build --turbopack",
+    "build": "npm run generate:content && prisma generate && prisma migrate deploy && next build --turbopack",
     "start": "next start",
     "lint": "next lint",
     "lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
