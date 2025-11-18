@@ -6,14 +6,12 @@ import { questionKey } from "@/lib/question-key";
 
 const MAX_COMMENT_LENGTH = 1000;
 
-type RouteParams = {
-  year?: string;
-  block?: string;
-  number?: string;
-};
-
 type RouteContext = {
-  params: RouteParams | Promise<RouteParams>;
+  params: {
+    year?: string;
+    block?: string;
+    number?: string;
+  };
 };
 
 type ParsedParams = {
@@ -34,8 +32,7 @@ function getSessionUserId(session: unknown): string | null {
   return (session as SessionLike | null)?.user?.id ?? null;
 }
 
-async function parseParams(paramsInput: RouteContext["params"]): Promise<ParsedParams | null> {
-  const params = await Promise.resolve(paramsInput);
+function parseParams(params: RouteContext["params"]): ParsedParams | null {
   const year = Number(params.year);
   const block = Number(params.block);
   const number = Number(params.number);
@@ -73,7 +70,7 @@ function formatComment(
 }
 
 export async function GET(_request: NextRequest, context: RouteContext) {
-  const parsed = await parseParams(context.params);
+  const parsed = parseParams(context.params);
   if (!parsed) {
     return NextResponse.json({ error: "Invalid question parameters" }, { status: 400 });
   }
@@ -92,7 +89,7 @@ export async function GET(_request: NextRequest, context: RouteContext) {
 }
 
 export async function POST(request: NextRequest, context: RouteContext) {
-  const parsed = await parseParams(context.params);
+  const parsed = parseParams(context.params);
   if (!parsed) {
     return NextResponse.json({ error: "Invalid question parameters" }, { status: 400 });
   }
@@ -131,7 +128,7 @@ export async function POST(request: NextRequest, context: RouteContext) {
 }
 
 export async function DELETE(request: NextRequest, context: RouteContext) {
-  const parsed = await parseParams(context.params);
+  const parsed = parseParams(context.params);
   if (!parsed) {
     return NextResponse.json({ error: "Invalid question parameters" }, { status: 400 });
   }
