@@ -6,13 +6,11 @@ import { questionKey } from "@/lib/question-key";
 
 const MAX_COMMENT_LENGTH = 1000;
 
-type RouteContext = {
-  params: {
-    year?: string;
-    block?: string;
-    number?: string;
-  };
-};
+type RouteParamsInput = Promise<{
+  year: string;
+  block: string;
+  number: string;
+}>;
 
 type ParsedParams = {
   year: number;
@@ -32,7 +30,8 @@ function getSessionUserId(session: unknown): string | null {
   return (session as SessionLike | null)?.user?.id ?? null;
 }
 
-function parseParams(params: RouteContext["params"]): ParsedParams | null {
+async function parseParams(paramsPromise: RouteParamsInput): Promise<ParsedParams | null> {
+  const params = await paramsPromise;
   const year = Number(params.year);
   const block = Number(params.block);
   const number = Number(params.number);
@@ -69,8 +68,8 @@ function formatComment(
   };
 }
 
-export async function GET(_request: NextRequest, context: RouteContext) {
-  const parsed = parseParams(context.params);
+export async function GET(_request: NextRequest, { params }: { params: RouteParamsInput }) {
+  const parsed = await parseParams(params);
   if (!parsed) {
     return NextResponse.json({ error: "Invalid question parameters" }, { status: 400 });
   }
@@ -88,8 +87,8 @@ export async function GET(_request: NextRequest, context: RouteContext) {
   return NextResponse.json({ comments: records.map(record => formatComment(record, viewerId)) });
 }
 
-export async function POST(request: NextRequest, context: RouteContext) {
-  const parsed = parseParams(context.params);
+export async function POST(request: NextRequest, { params }: { params: RouteParamsInput }) {
+  const parsed = await parseParams(params);
   if (!parsed) {
     return NextResponse.json({ error: "Invalid question parameters" }, { status: 400 });
   }
@@ -127,8 +126,8 @@ export async function POST(request: NextRequest, context: RouteContext) {
   return NextResponse.json({ comment: formatComment(created, userId) }, { status: 201 });
 }
 
-export async function DELETE(request: NextRequest, context: RouteContext) {
-  const parsed = parseParams(context.params);
+export async function DELETE(request: NextRequest, { params }: { params: RouteParamsInput }) {
+  const parsed = await parseParams(params);
   if (!parsed) {
     return NextResponse.json({ error: "Invalid question parameters" }, { status: 400 });
   }
