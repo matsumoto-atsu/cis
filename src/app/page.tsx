@@ -22,6 +22,11 @@ const quizCatalog = [
     blocks: [1, 2, 3, 4, 5, 6, 7, 8],
     description: "卒試2025 過去問セット",
   },
+  {
+    year: 20252,
+    blocks: [1, 2, 3, 4, 5, 6, 7, 8],
+    description: "卒試2025再試 過去問セット",
+  },
 ];
 
 export default function Page() {
